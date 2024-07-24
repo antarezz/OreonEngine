@@ -11,8 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ChunkConfig {
 
-	private int lod;
-	private Vec2f location;
-	private Vec2f index;
-	private float gap;
+  private int lod;
+  private Vec2f location;
+  private Vec2f index;
+  private float gap;
 }

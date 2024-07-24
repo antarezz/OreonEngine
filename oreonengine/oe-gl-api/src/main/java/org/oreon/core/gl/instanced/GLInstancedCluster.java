@@ -8,8 +8,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class GLInstancedCluster extends InstancedCluster{
+public class GLInstancedCluster extends InstancedCluster {
 
-	private GLUniformBuffer modelMatricesBuffer;
-	private GLUniformBuffer worldMatricesBuffer;
+  private GLUniformBuffer modelMatricesBuffer;
+  private GLUniformBuffer worldMatricesBuffer;
 }

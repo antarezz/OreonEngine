@@ -7,36 +7,43 @@ import lombok.Setter;
 @Setter
 public class Image {
 
-	protected ImageMetaData metaData;
-	
-	public enum ImageFormat {
+  protected ImageMetaData metaData;
 
-		RGBA8_SNORM,
-		RGBA32FLOAT,
-		RGB32FLOAT,
-		RGBA16FLOAT,
-		DEPTH32FLOAT,
-		R16FLOAT,
-		R32FLOAT,
-		R8
-	}
-	
-	public enum SamplerFilter {
+  public enum ImageFormat {
 
-		Nearest,
-		Bilinear,
-		Trilinear,
-		Anistropic
-	}
-	
-	public enum TextureWrapMode {
-		
-		ClampToEdge,
-		ClampToBorder,
-		Repeat,
-		MirrorRepeat
-	}
-	
-	public void bind(){};
-	public void unbind(){};
+    RGBA8_SNORM,
+    RGBA32FLOAT,
+    RGB32FLOAT,
+    RGBA16FLOAT,
+    DEPTH32FLOAT,
+    R16FLOAT,
+    R32FLOAT,
+    R8
+  }
+
+  public enum SamplerFilter {
+
+    Nearest,
+    Bilinear,
+    Trilinear,
+    Anistropic
+  }
+
+  public enum TextureWrapMode {
+
+    ClampToEdge,
+    ClampToBorder,
+    Repeat,
+    MirrorRepeat
+  }
+
+  public void bind() {
+  }
+
+  ;
+
+  public void unbind() {
+  }
+
+  ;
 }

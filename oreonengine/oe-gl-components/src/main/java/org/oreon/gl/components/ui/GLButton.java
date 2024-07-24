@@ -53,11 +53,11 @@ public abstract class GLButton extends UIButton {
     shader.bind();
     shader.updateUniforms(getOrthographicMatrix());
     glActiveTexture(GL_TEXTURE1);
-		if (onClick) {
-			buttonClickTexture.bind();
-		} else {
-			buttonTexture.bind();
-		}
+    if (onClick) {
+      buttonClickTexture.bind();
+    } else {
+      buttonTexture.bind();
+    }
     shader.updateUniforms(1);
     vao.draw();
     config.disable();
@@ -84,19 +84,19 @@ public abstract class GLButton extends UIButton {
 
     Vec2f mousePos = new Vec2f((float) xPos.get(), (float) yPos.get());
 
-		if (pos[0].getX() < mousePos.getX() &&
-				pos[1].getX() < mousePos.getX() &&
-				pos[2].getX() > mousePos.getX() &&
-				pos[3].getX() > mousePos.getX() &&
-				pos[0].getY() < ContextHolder.getContext().getWindow().getHeight() - mousePos.getY() &&
-				pos[3].getY() < ContextHolder.getContext().getWindow().getHeight() - mousePos.getY() &&
-				pos[1].getY() > ContextHolder.getContext().getWindow().getHeight() - mousePos.getY() &&
-				pos[2].getY() > ContextHolder.getContext().getWindow().getHeight() - mousePos.getY()) {
+    if (pos[0].getX() < mousePos.getX() &&
+        pos[1].getX() < mousePos.getX() &&
+        pos[2].getX() > mousePos.getX() &&
+        pos[3].getX() > mousePos.getX() &&
+        pos[0].getY() < ContextHolder.getContext().getWindow().getHeight() - mousePos.getY() &&
+        pos[3].getY() < ContextHolder.getContext().getWindow().getHeight() - mousePos.getY() &&
+        pos[1].getY() > ContextHolder.getContext().getWindow().getHeight() - mousePos.getY() &&
+        pos[2].getY() > ContextHolder.getContext().getWindow().getHeight() - mousePos.getY()) {
 
-			return true;
-		} else {
-			return false;
-		}
+      return true;
+    } else {
+      return false;
+    }
   }
 
   public void onClickActionPerformed() {

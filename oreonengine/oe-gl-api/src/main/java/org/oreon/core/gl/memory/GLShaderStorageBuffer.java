@@ -17,41 +17,35 @@ import org.oreon.core.util.BufferUtil;
  */
 
 public class GLShaderStorageBuffer {
-	
-	private int ssbo;
-	
-	public GLShaderStorageBuffer()
-	{
-		ssbo = glGenBuffers();
-	}
-	
-	public void addData(Vec2f[] data)
-	{
-		glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssbo);
-		glBufferData(GL_SHADER_STORAGE_BUFFER, BufferUtil.createFlippedBuffer(data), GL_STATIC_READ);
-	}
-	
-	public void addData(int[] data)
-	{
-		glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssbo);
-		glBufferData(GL_SHADER_STORAGE_BUFFER, BufferUtil.createFlippedBuffer(data), GL_STATIC_READ);
-	}
-	
-	public void addData(float[] data)
-	{
-		glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssbo);
-		glBufferData(GL_SHADER_STORAGE_BUFFER, BufferUtil.createFlippedBuffer(data), GL_STATIC_READ);
-	}
-	
-	public void addData(ByteBuffer data)
-	{
-		glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssbo);
-		glBufferData(GL_SHADER_STORAGE_BUFFER, data, GL_STATIC_READ);
-	}
-	
-	public void bindBufferBase(int index)
-	{
-		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, index, ssbo);
-	}
+
+  private int ssbo;
+
+  public GLShaderStorageBuffer() {
+    ssbo = glGenBuffers();
+  }
+
+  public void addData(Vec2f[] data) {
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssbo);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, BufferUtil.createFlippedBuffer(data), GL_STATIC_READ);
+  }
+
+  public void addData(int[] data) {
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssbo);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, BufferUtil.createFlippedBuffer(data), GL_STATIC_READ);
+  }
+
+  public void addData(float[] data) {
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssbo);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, BufferUtil.createFlippedBuffer(data), GL_STATIC_READ);
+  }
+
+  public void addData(ByteBuffer data) {
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssbo);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, data, GL_STATIC_READ);
+  }
+
+  public void bindBufferBase(int index) {
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, index, ssbo);
+  }
 
 }

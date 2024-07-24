@@ -15,38 +15,38 @@ import org.oreon.core.vk.util.VkUtil;
 import lombok.Getter;
 
 public class VkSemaphore {
-	
-	@Getter
-	private long handle;
-	@Getter
-	private LongBuffer handlePointer;
-	
-	private VkDevice device;
 
-	public VkSemaphore(VkDevice device) {
-		
-		this.device = device;
-		
-		VkSemaphoreCreateInfo semaphoreCreateInfo = VkSemaphoreCreateInfo.calloc()
-                .sType(VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO)
-                .pNext(0)
-                .flags(0);
-		
-		handlePointer = memAllocLong(1);
-		
-		int err = vkCreateSemaphore(device, semaphoreCreateInfo, null, handlePointer);
-		if (err != VK_SUCCESS) {
-			throw new AssertionError("Failed to create semaphore: " + VkUtil.translateVulkanResult(err));
-		}
-		
-		handle = handlePointer.get(0);
-		
-		semaphoreCreateInfo.free();
-	}
-	
-	public void destroy(){
-		
-		vkDestroySemaphore(device, handle, null);
-	}
+  @Getter
+  private long handle;
+  @Getter
+  private LongBuffer handlePointer;
+
+  private VkDevice device;
+
+  public VkSemaphore(VkDevice device) {
+
+    this.device = device;
+
+    VkSemaphoreCreateInfo semaphoreCreateInfo = VkSemaphoreCreateInfo.calloc()
+        .sType(VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO)
+        .pNext(0)
+        .flags(0);
+
+    handlePointer = memAllocLong(1);
+
+    int err = vkCreateSemaphore(device, semaphoreCreateInfo, null, handlePointer);
+    if (err != VK_SUCCESS) {
+      throw new AssertionError("Failed to create semaphore: " + VkUtil.translateVulkanResult(err));
+    }
+
+    handle = handlePointer.get(0);
+
+    semaphoreCreateInfo.free();
+  }
+
+  public void destroy() {
+
+    vkDestroySemaphore(device, handle, null);
+  }
 
 }

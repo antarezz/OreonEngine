@@ -11,8 +11,8 @@ import lombok.Setter;
 @Setter
 public class ImageMetaData {
 
-	int width;
-	int height;
-	int channels;
-	
+  int width;
+  int height;
+  int channels;
+
 }

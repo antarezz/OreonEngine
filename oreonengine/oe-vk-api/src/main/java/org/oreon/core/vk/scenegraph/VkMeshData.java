@@ -23,43 +23,43 @@ import lombok.Getter;
 @Builder
 @AllArgsConstructor
 @Getter
-public class VkMeshData extends NodeComponent{
+public class VkMeshData extends NodeComponent {
 
-	private VkBuffer vertexBufferObject;
-	private ByteBuffer vertexBuffer;
-	private int vertexCount;
-	
-	private VkBuffer indexBufferObject;
-	private ByteBuffer indexBuffer;
-	private int indexCount;
-	
-	public VkMeshData(VkDevice device, VkPhysicalDeviceMemoryProperties memoryProperties,
-			CommandPool commandPool, VkQueue queue, Mesh mesh, VertexLayout vertexLayout) {
-		
-		ByteBuffer vertexByteBuffer = BufferUtil.createByteBuffer(mesh.getVertices(), vertexLayout);
-		ByteBuffer indexByteBuffer = BufferUtil.createByteBuffer(mesh.getIndices());
-		vertexCount = mesh.getVertices().length;
-		indexCount = mesh.getIndices().length;
-		
-		vertexBufferObject = VkBufferHelper.createDeviceLocalBuffer(
-				device, memoryProperties,
-				commandPool.getHandle(), queue,
-				vertexByteBuffer, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
+  private VkBuffer vertexBufferObject;
+  private ByteBuffer vertexBuffer;
+  private int vertexCount;
 
-		indexBufferObject = VkBufferHelper.createDeviceLocalBuffer(
-        		device, memoryProperties,
-				commandPool.getHandle(), queue,
-        		indexByteBuffer, VK_BUFFER_USAGE_INDEX_BUFFER_BIT);
-	}
-	
-	public void shutdown(){
+  private VkBuffer indexBufferObject;
+  private ByteBuffer indexBuffer;
+  private int indexCount;
 
-		if(vertexBufferObject != null){
-			vertexBufferObject.destroy();
-		}
-		if(indexBufferObject != null){
-			indexBufferObject.destroy();
-		}
-	}
-	
+  public VkMeshData(VkDevice device, VkPhysicalDeviceMemoryProperties memoryProperties,
+      CommandPool commandPool, VkQueue queue, Mesh mesh, VertexLayout vertexLayout) {
+
+    ByteBuffer vertexByteBuffer = BufferUtil.createByteBuffer(mesh.getVertices(), vertexLayout);
+    ByteBuffer indexByteBuffer = BufferUtil.createByteBuffer(mesh.getIndices());
+    vertexCount = mesh.getVertices().length;
+    indexCount = mesh.getIndices().length;
+
+    vertexBufferObject = VkBufferHelper.createDeviceLocalBuffer(
+        device, memoryProperties,
+        commandPool.getHandle(), queue,
+        vertexByteBuffer, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
+
+    indexBufferObject = VkBufferHelper.createDeviceLocalBuffer(
+        device, memoryProperties,
+        commandPool.getHandle(), queue,
+        indexByteBuffer, VK_BUFFER_USAGE_INDEX_BUFFER_BIT);
+  }
+
+  public void shutdown() {
+
+    if (vertexBufferObject != null) {
+      vertexBufferObject.destroy();
+    }
+    if (indexBufferObject != null) {
+      indexBufferObject.destroy();
+    }
+  }
+
 }

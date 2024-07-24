@@ -10,22 +10,24 @@ import org.oreon.core.gl.texture.GLTexture;
 import org.oreon.core.gl.wrapper.texture.TextureImage2D;
 import org.oreon.core.image.Image.SamplerFilter;
 
-public class GLGUI extends GUI{
-	
-	protected GLTexture fontsTexture;
-	protected GUIVAO panelMeshBuffer;
-	
-	public void init() {
-		fontsTexture = new TextureImage2D("gui/tex/Fonts.png", SamplerFilter.Bilinear);
-		panelMeshBuffer = new GUIVAO();
-		panelMeshBuffer.addData(UIPanelLoader.load("gui/basicPanel.gui"));
-	}
-	
-	@Override
-	public void render(){
-		glDisable(GL_DEPTH_TEST);
-		super.render();
-		glEnable(GL_DEPTH_TEST);
-	};
+public class GLGUI extends GUI {
+
+  protected GLTexture fontsTexture;
+  protected GUIVAO panelMeshBuffer;
+
+  public void init() {
+    fontsTexture = new TextureImage2D("gui/tex/Fonts.png", SamplerFilter.Bilinear);
+    panelMeshBuffer = new GUIVAO();
+    panelMeshBuffer.addData(UIPanelLoader.load("gui/basicPanel.gui"));
+  }
+
+  @Override
+  public void render() {
+    glDisable(GL_DEPTH_TEST);
+    super.render();
+    glEnable(GL_DEPTH_TEST);
+  }
+
+  ;
 
 }

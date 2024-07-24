@@ -6,13 +6,13 @@ import static org.lwjgl.opengl.GL11.glEnable;
 
 import org.oreon.core.gl.pipeline.RenderParameter;
 
-public class CullFaceDisable implements RenderParameter{
-	
-	public void enable(){
-		glDisable(GL_CULL_FACE);
-	}
-	
-	public void disable(){
-		glEnable(GL_CULL_FACE);
-	}		
+public class CullFaceDisable implements RenderParameter {
+
+  public void enable() {
+    glDisable(GL_CULL_FACE);
+  }
+
+  public void disable() {
+    glEnable(GL_CULL_FACE);
+  }
 }

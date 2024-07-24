@@ -19,37 +19,39 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class VkRenderInfo extends NodeComponent{
+public class VkRenderInfo extends NodeComponent {
 
-	private VkPipeline pipeline;
-	private CommandBuffer commandBuffer;
-	private VkVertexInput vertexInput;
-	private ShaderPipeline shaderPipeline;
-	private List<DescriptorSetLayout> descriptorSetLayouts;
-	private List<DescriptorSet> descriptorSets;
+  private VkPipeline pipeline;
+  private CommandBuffer commandBuffer;
+  private VkVertexInput vertexInput;
+  private ShaderPipeline shaderPipeline;
+  private List<DescriptorSetLayout> descriptorSetLayouts;
+  private List<DescriptorSet> descriptorSets;
 
-	public void shutdown(){
-		
-		if(pipeline != null){
-			pipeline.destroy();
-		}
-		if (commandBuffer != null){
-			commandBuffer.destroy();
-		}
-		if(shaderPipeline != null){
-			shaderPipeline.destroy();
-		}
-		if(descriptorSetLayouts != null){
-			for (DescriptorSetLayout layout : descriptorSetLayouts){
-				if (layout.getHandle() != -1)
-					layout.destroy();
-			}
-		}
-		if(descriptorSets != null){
-			for (DescriptorSet set : descriptorSets){
-				if (set.getHandle() != -1)
-					set.destroy();
-			}
-		}
-	}
+  public void shutdown() {
+
+    if (pipeline != null) {
+      pipeline.destroy();
+    }
+    if (commandBuffer != null) {
+      commandBuffer.destroy();
+    }
+    if (shaderPipeline != null) {
+      shaderPipeline.destroy();
+    }
+    if (descriptorSetLayouts != null) {
+      for (DescriptorSetLayout layout : descriptorSetLayouts) {
+        if (layout.getHandle() != -1) {
+          layout.destroy();
+        }
+      }
+    }
+    if (descriptorSets != null) {
+      for (DescriptorSet set : descriptorSets) {
+        if (set.getHandle() != -1) {
+          set.destroy();
+        }
+      }
+    }
+  }
 }

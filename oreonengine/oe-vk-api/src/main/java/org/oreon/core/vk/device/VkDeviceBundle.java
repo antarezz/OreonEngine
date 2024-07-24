@@ -7,6 +7,6 @@ import lombok.Getter;
 @Getter
 public class VkDeviceBundle {
 
-	private PhysicalDevice physicalDevice;
-	private LogicalDevice logicalDevice;
+  private PhysicalDevice physicalDevice;
+  private LogicalDevice logicalDevice;
 }

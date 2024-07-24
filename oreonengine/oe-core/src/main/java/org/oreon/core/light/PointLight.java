@@ -2,92 +2,92 @@ package org.oreon.core.light;
 
 import org.oreon.core.math.Vec3f;
 
-public class PointLight extends Light{
+public class PointLight extends Light {
 
-	private int isEnabled;
-	private int isSpot;
-	private Vec3f position;
-	private float ConstantAttenuation;
-	private float LinearAttenuation;
-	private float QuadraticAttenuation;
-	private Vec3f ConeDirection;
-	private float SpotCosCutoff;
-	private float SpotExponent;
-	
-	public PointLight(Vec3f position, Vec3f color, float intensity) {
-		super(position, color, intensity);
-		this.position = position;
-	}
+  private int isEnabled;
+  private int isSpot;
+  private Vec3f position;
+  private float ConstantAttenuation;
+  private float LinearAttenuation;
+  private float QuadraticAttenuation;
+  private Vec3f ConeDirection;
+  private float SpotCosCutoff;
+  private float SpotExponent;
 
-	public Vec3f getPosition() {
-		return position;
-	}
+  public PointLight(Vec3f position, Vec3f color, float intensity) {
+    super(position, color, intensity);
+    this.position = position;
+  }
 
-	public void setPosition(Vec3f position) {
-		this.position = position;
-	}
+  public Vec3f getPosition() {
+    return position;
+  }
 
-	public int isEnabled() {
-		return isEnabled;
-	}
+  public void setPosition(Vec3f position) {
+    this.position = position;
+  }
 
-	public void setEnabled(int isEnabled) {
-		this.isEnabled = isEnabled;
-	}
+  public int isEnabled() {
+    return isEnabled;
+  }
 
-	public int isSpot() {
-		return isSpot;
-	}
+  public void setEnabled(int isEnabled) {
+    this.isEnabled = isEnabled;
+  }
 
-	public void setSpot(int isSpot) {
-		this.isSpot = isSpot;
-	}
+  public int isSpot() {
+    return isSpot;
+  }
 
-	public float getConstantAttenuation() {
-		return ConstantAttenuation;
-	}
+  public void setSpot(int isSpot) {
+    this.isSpot = isSpot;
+  }
 
-	public void setConstantAttenuation(float constantAttenuation) {
-		ConstantAttenuation = constantAttenuation;
-	}
+  public float getConstantAttenuation() {
+    return ConstantAttenuation;
+  }
 
-	public float getLinearAttenuation() {
-		return LinearAttenuation;
-	}
+  public void setConstantAttenuation(float constantAttenuation) {
+    ConstantAttenuation = constantAttenuation;
+  }
 
-	public void setLinearAttenuation(float linearAttenuation) {
-		LinearAttenuation = linearAttenuation;
-	}
+  public float getLinearAttenuation() {
+    return LinearAttenuation;
+  }
 
-	public float getQuadraticAttenuation() {
-		return QuadraticAttenuation;
-	}
+  public void setLinearAttenuation(float linearAttenuation) {
+    LinearAttenuation = linearAttenuation;
+  }
 
-	public void setQuadraticAttenuation(float quadraticAttenuation) {
-		QuadraticAttenuation = quadraticAttenuation;
-	}
+  public float getQuadraticAttenuation() {
+    return QuadraticAttenuation;
+  }
 
-	public Vec3f getConeDirection() {
-		return ConeDirection;
-	}
+  public void setQuadraticAttenuation(float quadraticAttenuation) {
+    QuadraticAttenuation = quadraticAttenuation;
+  }
 
-	public void setConeDirection(Vec3f coneDirection) {
-		ConeDirection = coneDirection;
-	}
+  public Vec3f getConeDirection() {
+    return ConeDirection;
+  }
 
-	public float getSpotCosCutoff() {
-		return SpotCosCutoff;
-	}
+  public void setConeDirection(Vec3f coneDirection) {
+    ConeDirection = coneDirection;
+  }
 
-	public void setSpotCosCutoff(float spotCosCutoff) {
-		SpotCosCutoff = spotCosCutoff;
-	}
+  public float getSpotCosCutoff() {
+    return SpotCosCutoff;
+  }
 
-	public float getSpotExponent() {
-		return SpotExponent;
-	}
+  public void setSpotCosCutoff(float spotCosCutoff) {
+    SpotCosCutoff = spotCosCutoff;
+  }
 
-	public void setSpotExponent(float spotExponent) {
-		SpotExponent = spotExponent;
-	}
+  public float getSpotExponent() {
+    return SpotExponent;
+  }
+
+  public void setSpotExponent(float spotExponent) {
+    SpotExponent = spotExponent;
+  }
 }

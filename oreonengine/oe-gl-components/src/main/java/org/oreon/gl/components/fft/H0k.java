@@ -22,71 +22,71 @@ import lombok.Getter;
 
 public class H0k {
 
-	@Getter
-	private GLTexture imageH0k;
-	@Getter
-	private GLTexture imageH0minusK;
-	
-	private int N;
-	private int L;
-	private Vec2f direction;
-	private float intensity;
-	private float amplitude;
-	private float alignment;
-	private float capillarSupressFactor;
-	
-	private GLTexture noise0;
-	private GLTexture noise1;
-	private GLTexture noise2;
-	private GLTexture noise3;
-	
-	protected GLShaderProgram shader;
-	
-	public H0k(int N, int L, float amplitude, Vec2f direction, float alignment,
-			float intensity, float capillarSupressFactor) {
-	
-		this.N = N;
-		this.L = L;
-		this.direction = direction;
-		this.amplitude = amplitude;
-		this.intensity = intensity;
-		this.capillarSupressFactor = capillarSupressFactor;
-		this.alignment = alignment;
-		
-		shader = H0kShader.getInstance();
-		
-		imageH0k = new TextureStorage2D(N, N, 1, ImageFormat.RGBA32FLOAT);
-		imageH0minusK = new TextureStorage2D(N, N, 1, ImageFormat.RGBA32FLOAT);
-		noise0 = new TextureImage2D("textures/noise/Noise256_0.jpg", SamplerFilter.Nearest);
-		noise1 = new TextureImage2D("textures/noise/Noise256_1.jpg", SamplerFilter.Nearest);
-		noise2 = new TextureImage2D("textures/noise/Noise256_2.jpg", SamplerFilter.Nearest);
-		noise3 = new TextureImage2D("textures/noise/Noise256_3.jpg", SamplerFilter.Nearest);
-	}
-	
-	public void render() {
-		
-		shader.bind();
-		shader.updateUniforms(N, L, amplitude, direction, alignment, intensity, capillarSupressFactor);
-		
-		glActiveTexture(GL_TEXTURE0);
-		noise0.bind();
-		
-		glActiveTexture(GL_TEXTURE1);
-		noise1.bind();
-		
-		glActiveTexture(GL_TEXTURE2);
-		noise2.bind();
-		
-		glActiveTexture(GL_TEXTURE3);
-		noise3.bind();
-		
-		shader.updateUniforms(0, 1, 2, 3);
-		
-		glBindImageTexture(0, imageH0k.getHandle(), 0, false, 0, GL_WRITE_ONLY, GL_RGBA32F);
-		
-		glBindImageTexture(1, imageH0minusK.getHandle(), 0, false, 0, GL_WRITE_ONLY, GL_RGBA32F);
-		
-		glDispatchCompute(N/16,N/16,1);		
-	}
+  @Getter
+  private GLTexture imageH0k;
+  @Getter
+  private GLTexture imageH0minusK;
+
+  private int N;
+  private int L;
+  private Vec2f direction;
+  private float intensity;
+  private float amplitude;
+  private float alignment;
+  private float capillarSupressFactor;
+
+  private GLTexture noise0;
+  private GLTexture noise1;
+  private GLTexture noise2;
+  private GLTexture noise3;
+
+  protected GLShaderProgram shader;
+
+  public H0k(int N, int L, float amplitude, Vec2f direction, float alignment,
+      float intensity, float capillarSupressFactor) {
+
+    this.N = N;
+    this.L = L;
+    this.direction = direction;
+    this.amplitude = amplitude;
+    this.intensity = intensity;
+    this.capillarSupressFactor = capillarSupressFactor;
+    this.alignment = alignment;
+
+    shader = H0kShader.getInstance();
+
+    imageH0k = new TextureStorage2D(N, N, 1, ImageFormat.RGBA32FLOAT);
+    imageH0minusK = new TextureStorage2D(N, N, 1, ImageFormat.RGBA32FLOAT);
+    noise0 = new TextureImage2D("textures/noise/Noise256_0.jpg", SamplerFilter.Nearest);
+    noise1 = new TextureImage2D("textures/noise/Noise256_1.jpg", SamplerFilter.Nearest);
+    noise2 = new TextureImage2D("textures/noise/Noise256_2.jpg", SamplerFilter.Nearest);
+    noise3 = new TextureImage2D("textures/noise/Noise256_3.jpg", SamplerFilter.Nearest);
+  }
+
+  public void render() {
+
+    shader.bind();
+    shader.updateUniforms(N, L, amplitude, direction, alignment, intensity, capillarSupressFactor);
+
+    glActiveTexture(GL_TEXTURE0);
+    noise0.bind();
+
+    glActiveTexture(GL_TEXTURE1);
+    noise1.bind();
+
+    glActiveTexture(GL_TEXTURE2);
+    noise2.bind();
+
+    glActiveTexture(GL_TEXTURE3);
+    noise3.bind();
+
+    shader.updateUniforms(0, 1, 2, 3);
+
+    glBindImageTexture(0, imageH0k.getHandle(), 0, false, 0, GL_WRITE_ONLY, GL_RGBA32F);
+
+    glBindImageTexture(1, imageH0minusK.getHandle(), 0, false, 0, GL_WRITE_ONLY, GL_RGBA32F);
+
+    glDispatchCompute(N / 16, N / 16, 1);
+  }
 
 }

@@ -13,21 +13,21 @@ import lombok.NoArgsConstructor;
 @Getter
 public class VkImageBundle {
 
-	protected VkImage image;
-	protected VkImageView imageView;
-	protected VkSampler sampler;
-	
-	public VkImageBundle(VkImage image, VkImageView imageView) {
-		this.image = image;
-		this.imageView = imageView;
-	}
-	
-	public void destroy(){
-		
-		if (sampler != null){
-			sampler.destroy();
-		}
-		imageView.destroy();
-		image.destroy();
-	}
+  protected VkImage image;
+  protected VkImageView imageView;
+  protected VkSampler sampler;
+
+  public VkImageBundle(VkImage image, VkImageView imageView) {
+    this.image = image;
+    this.imageView = imageView;
+  }
+
+  public void destroy() {
+
+    if (sampler != null) {
+      sampler.destroy();
+    }
+    imageView.destroy();
+    image.destroy();
+  }
 }

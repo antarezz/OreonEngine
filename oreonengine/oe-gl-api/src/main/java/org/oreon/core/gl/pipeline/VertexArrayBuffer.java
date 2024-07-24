@@ -13,46 +13,46 @@ import lombok.Getter;
 
 public abstract class VertexArrayBuffer {
 
-	@Getter
-	private int handle;
-	
-	public VertexArrayBuffer() {
-		
-		handle = glGenVertexArrays();
-	}
-	
-	public void bind(){
-		
-		glBindVertexArray(handle);
-	}
-	
-	public void unbind(){
-		
-		glBindVertexArray(0);
-	}
-	
-	public void setAttributePointer(int index, int size, int type, boolean normalized, int stride, int offset){
-		
-		glVertexAttribPointer(index, size, type, normalized, stride, offset);
-	}
-	
-	public void drawElements(int mode, int size){
-		
-		glDrawElements(mode, size, GL_UNSIGNED_INT, 0);
-	}
-	
-	public void drawElementsInstanced(int mode, int size, int count){
-		
-		glDrawElementsInstanced(mode, size, GL_UNSIGNED_INT, 0, count);
-	}
-	
-	public void drawArrays(int mode, int count){
-		
-		glDrawArrays(mode, 0, count);
-	}
-	
-	public void delete(){
-		
-		glDeleteVertexArrays(handle);
-	}
+  @Getter
+  private int handle;
+
+  public VertexArrayBuffer() {
+
+    handle = glGenVertexArrays();
+  }
+
+  public void bind() {
+
+    glBindVertexArray(handle);
+  }
+
+  public void unbind() {
+
+    glBindVertexArray(0);
+  }
+
+  public void setAttributePointer(int index, int size, int type, boolean normalized, int stride, int offset) {
+
+    glVertexAttribPointer(index, size, type, normalized, stride, offset);
+  }
+
+  public void drawElements(int mode, int size) {
+
+    glDrawElements(mode, size, GL_UNSIGNED_INT, 0);
+  }
+
+  public void drawElementsInstanced(int mode, int size, int count) {
+
+    glDrawElementsInstanced(mode, size, GL_UNSIGNED_INT, 0, count);
+  }
+
+  public void drawArrays(int mode, int count) {
+
+    glDrawArrays(mode, 0, count);
+  }
+
+  public void delete() {
+
+    glDeleteVertexArrays(handle);
+  }
 }

@@ -11,14 +11,11 @@ import org.oreon.core.gl.scenegraph.GLCamera;
 import org.oreon.core.gl.util.GLUtil;
 
 @Log4j2
-public class GLOreonContext extends BaseOreonContext<GLCamera, GLWindow> {
-
-  @Getter
-  private final GLResources resources;
+@Getter
+public class GLOreonContext extends BaseOreonContext<GLCamera, GLWindow, GLResources> {
 
   public GLOreonContext() {
-    super(new GLCamera(), new GLWindow(), null);
-    this.resources = new GLResources();
+    super(new GLCamera(), new GLWindow(), new GLResources(), null);
 
     if (!glfwInit()) {
       throw new IllegalStateException("Unable to initialize GLFW");

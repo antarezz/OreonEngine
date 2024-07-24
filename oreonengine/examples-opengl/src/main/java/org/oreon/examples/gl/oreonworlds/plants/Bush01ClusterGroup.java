@@ -14,32 +14,32 @@ import org.oreon.core.scenegraph.Renderable;
 import org.oreon.examples.gl.oreonworlds.shaders.plants.BushShader;
 import org.oreon.examples.gl.oreonworlds.shaders.plants.BushShadowShader;
 
-public class Bush01ClusterGroup extends InstancedObject{
+public class Bush01ClusterGroup extends InstancedObject {
 
-	public Bush01ClusterGroup(){
-		
-		List<Renderable> objects = new ArrayList<>();
-		
-		List<Model> models = GLAssimpModelLoader.loadModel("oreonworlds/assets/plants/Bush_01","Bush_01.obj");
-		
-		for (Model model : models){
-			
-			GLMeshVBO meshBuffer = new GLMeshVBO();
-			model.getMesh().setTangentSpace(false);
+  public Bush01ClusterGroup() {
+
+    List<Renderable> objects = new ArrayList<>();
+
+    List<Model> models = GLAssimpModelLoader.loadModel("oreonworlds/assets/plants/Bush_01", "Bush_01.obj");
+
+    for (Model model : models) {
+
+      GLMeshVBO meshBuffer = new GLMeshVBO();
+      model.getMesh().setTangentSpace(false);
 //			model.getMesh().setInstanced(true);
-			meshBuffer.addData(model.getMesh());
+      meshBuffer.addData(model.getMesh());
 
-			GLRenderInfo renderInfo = new GLRenderInfo(BushShader.getInstance(), new CullFaceDisable(), meshBuffer);
-			GLRenderInfo shadowRenderInfo = new GLRenderInfo(BushShadowShader.getInstance(), new CullFaceDisable(), meshBuffer);
+      GLRenderInfo renderInfo = new GLRenderInfo(BushShader.getInstance(), new CullFaceDisable(), meshBuffer);
+      GLRenderInfo shadowRenderInfo = new GLRenderInfo(BushShadowShader.getInstance(), new CullFaceDisable(),
+          meshBuffer);
 
-			
-			Renderable object = new Renderable();
-			object.addComponent(NodeComponentType.MAIN_RENDERINFO, renderInfo);
-			object.addComponent(NodeComponentType.SHADOW_RENDERINFO, shadowRenderInfo);
-			object.addComponent(NodeComponentType.MATERIAL0, model.getMaterial());
-			objects.add(object);
-		}
-		
+      Renderable object = new Renderable();
+      object.addComponent(NodeComponentType.MAIN_RENDERINFO, renderInfo);
+      object.addComponent(NodeComponentType.SHADOW_RENDERINFO, shadowRenderInfo);
+      object.addComponent(NodeComponentType.MATERIAL0, model.getMaterial());
+      objects.add(object);
+    }
+
 //		addCluster(new Bush01Cluster(20,new Vec3f(-2082,0,2881),objects));
 //		addCluster(new Bush01Cluster(40,new Vec3f(-2125,0,2891),objects));
 //		addCluster(new Bush01Cluster(20,new Vec3f(-2188,0,2894),getChildren()));
@@ -68,10 +68,10 @@ public class Bush01ClusterGroup extends InstancedObject{
 //		addCluster(new Bush01Cluster(8,new Vec3f(-1863,0,2630),getChildren()));
 //		addCluster(new Bush01Cluster(6,new Vec3f(-1437,0,1823),getChildren()));
 //		addCluster(new Bush01Cluster(8,new Vec3f(-250,0,-96),getChildren()));
-		
+
 //		setThread(new Thread(this));
 //		getThread().start();
-	}
+  }
 
 //	@Override
 //	public void run() {

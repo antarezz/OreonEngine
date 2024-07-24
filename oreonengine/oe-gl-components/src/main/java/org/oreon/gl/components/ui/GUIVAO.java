@@ -26,70 +26,66 @@ import org.oreon.core.util.BufferUtil;
 
 public class GUIVAO {
 
-	private int vbo;
-	private int ibo;
-	private int vaoId;
-	private int indices;
-	private int vertices;
-	private int offset;
-	
-	public GUIVAO()
-	{
-		vbo = glGenBuffers();
-		ibo = glGenBuffers();
-		vaoId = glGenVertexArrays();
-		indices = 0;
-		vertices = 0;
-		offset = 24;
-	}
-	public void addData(Mesh mesh)
-	{
-			indices = mesh.getIndices().length;
-			vertices = mesh.getVertices().length;
-		
-			glBindVertexArray(vaoId);
-			
-			glBindBuffer(GL_ARRAY_BUFFER, vbo);
-			glBufferData(GL_ARRAY_BUFFER, BufferUtil.createFlippedBufferSOA(mesh.getVertices()), GL_DYNAMIC_DRAW);
-			
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, BufferUtil.createFlippedBuffer(mesh.getIndices()), GL_STATIC_DRAW);
-			
-			glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
-			glVertexAttribPointer(1, 2, GL_FLOAT, false, 0, vertices * offset);
-			
-			glBindVertexArray(0);
-	}
-	
-	public void draw()
-	{
-			
-			glBindVertexArray(vaoId);
-			
-			glEnableVertexAttribArray(0);
-			glEnableVertexAttribArray(1);
-			
-			glDrawElements(GL_TRIANGLES, indices, GL_UNSIGNED_INT, 0);
-			
-			glDisableVertexAttribArray(0);
-			glDisableVertexAttribArray(1);
-			
-			glBindVertexArray(0);
-	}
-	
-	public void update(Vec2f[] texCoords)
-	{
-		glBindVertexArray(vaoId);
-		glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		glBufferSubData(GL_ARRAY_BUFFER, vertices * offset, BufferUtil.createFlippedBuffer(texCoords));
-		glBindVertexArray(0);
-	}
-	
-	public void update(List<Vec2f> texCoords)
-	{
-		glBindVertexArray(vaoId);
-		glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		glBufferSubData(GL_ARRAY_BUFFER, vertices * offset, BufferUtil.createFlippedBuffer(texCoords));
-		glBindVertexArray(0);
-	}
+  private int vbo;
+  private int ibo;
+  private int vaoId;
+  private int indices;
+  private int vertices;
+  private int offset;
+
+  public GUIVAO() {
+    vbo = glGenBuffers();
+    ibo = glGenBuffers();
+    vaoId = glGenVertexArrays();
+    indices = 0;
+    vertices = 0;
+    offset = 24;
+  }
+
+  public void addData(Mesh mesh) {
+    indices = mesh.getIndices().length;
+    vertices = mesh.getVertices().length;
+
+    glBindVertexArray(vaoId);
+
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, BufferUtil.createFlippedBufferSOA(mesh.getVertices()), GL_DYNAMIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, BufferUtil.createFlippedBuffer(mesh.getIndices()), GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
+    glVertexAttribPointer(1, 2, GL_FLOAT, false, 0, vertices * offset);
+
+    glBindVertexArray(0);
+  }
+
+  public void draw() {
+
+    glBindVertexArray(vaoId);
+
+    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
+
+    glDrawElements(GL_TRIANGLES, indices, GL_UNSIGNED_INT, 0);
+
+    glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(1);
+
+    glBindVertexArray(0);
+  }
+
+  public void update(Vec2f[] texCoords) {
+    glBindVertexArray(vaoId);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferSubData(GL_ARRAY_BUFFER, vertices * offset, BufferUtil.createFlippedBuffer(texCoords));
+    glBindVertexArray(0);
+  }
+
+  public void update(List<Vec2f> texCoords) {
+    glBindVertexArray(vaoId);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferSubData(GL_ARRAY_BUFFER, vertices * offset, BufferUtil.createFlippedBuffer(texCoords));
+    glBindVertexArray(0);
+  }
 }

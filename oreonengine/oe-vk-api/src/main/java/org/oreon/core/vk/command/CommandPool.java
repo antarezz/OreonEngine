@@ -17,36 +17,36 @@ import org.oreon.core.vk.util.VkUtil;
 import lombok.Getter;
 
 public class CommandPool {
-	
-	@Getter
-	private long handle;
-	
-	private VkDevice device;
-	
-	public CommandPool(VkDevice device, int queueFamilyIndex){
-		
-		this.device = device;
-		
-		VkCommandPoolCreateInfo cmdPoolInfo = VkCommandPoolCreateInfo.calloc()
-	                .sType(VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO)
-	                .queueFamilyIndex(queueFamilyIndex)
-	                .flags(VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT);
-		
-		LongBuffer pCmdPool = memAllocLong(1);
-		int err = vkCreateCommandPool(device, cmdPoolInfo, null, pCmdPool);
-		handle = pCmdPool.get(0);
-		
-		cmdPoolInfo.free();
-		memFree(pCmdPool);
-		
-		if (err != VK_SUCCESS) {
-		    throw new AssertionError("Failed to create command pool: " + VkUtil.translateVulkanResult(err));
-		}
-	}
-	
-	public void destroy(){
-		
-		vkDestroyCommandPool(device, handle, null);
-	}
+
+  @Getter
+  private long handle;
+
+  private VkDevice device;
+
+  public CommandPool(VkDevice device, int queueFamilyIndex) {
+
+    this.device = device;
+
+    VkCommandPoolCreateInfo cmdPoolInfo = VkCommandPoolCreateInfo.calloc()
+        .sType(VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO)
+        .queueFamilyIndex(queueFamilyIndex)
+        .flags(VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT);
+
+    LongBuffer pCmdPool = memAllocLong(1);
+    int err = vkCreateCommandPool(device, cmdPoolInfo, null, pCmdPool);
+    handle = pCmdPool.get(0);
+
+    cmdPoolInfo.free();
+    memFree(pCmdPool);
+
+    if (err != VK_SUCCESS) {
+      throw new AssertionError("Failed to create command pool: " + VkUtil.translateVulkanResult(err));
+    }
+  }
+
+  public void destroy() {
+
+    vkDestroyCommandPool(device, handle, null);
+  }
 
 }

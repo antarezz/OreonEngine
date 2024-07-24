@@ -7,37 +7,37 @@ import org.oreon.core.scenegraph.Renderable;
 
 public abstract class OcclusionQuery {
 
-	private int id;
-	private IntBuffer buffer;
-	private int occlusionFactor;
-	
-	public abstract void doQuery(Renderable object);
-	
-	public abstract void doQuery(Light light);
-	
-	public abstract void delete();
+  private int id;
+  private IntBuffer buffer;
+  private int occlusionFactor;
 
-	public int getId() {
-		return id;
-	}
+  public abstract void doQuery(Renderable object);
 
-	public void setId(int id) {
-		this.id = id;
-	}
+  public abstract void doQuery(Light light);
 
-	public int getOcclusionFactor() {
-		return occlusionFactor;
-	}
+  public abstract void delete();
 
-	public void setOcclusionFactor(int occlusionFactor) {
-		this.occlusionFactor = occlusionFactor;
-	}
+  public int getId() {
+    return id;
+  }
 
-	public IntBuffer getBuffer() {
-		return buffer;
-	}
+  public void setId(int id) {
+    this.id = id;
+  }
 
-	public void setBuffer(IntBuffer buffer) {
-		this.buffer = buffer;
-	}
+  public int getOcclusionFactor() {
+    return occlusionFactor;
+  }
+
+  public void setOcclusionFactor(int occlusionFactor) {
+    this.occlusionFactor = occlusionFactor;
+  }
+
+  public IntBuffer getBuffer() {
+    return buffer;
+  }
+
+  public void setBuffer(IntBuffer buffer) {
+    this.buffer = buffer;
+  }
 }

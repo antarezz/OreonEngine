@@ -9,24 +9,24 @@ import org.oreon.core.image.ImageMetaData;
 import org.oreon.core.vk.command.CommandBuffer;
 import org.oreon.core.vk.command.SubmitInfo;
 
-public class ImageCopyCmdBuffer extends CommandBuffer{
-	
-	public ImageCopyCmdBuffer(VkDevice device, long commandPool) {
-		super(device, commandPool, VK_COMMAND_BUFFER_LEVEL_PRIMARY);
-	}
-	
-	public void record(long stagingBuffer, long image, ImageMetaData metaData){
-		
-		beginRecord(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT);
-	    copyBufferToImageCmd(stagingBuffer, image,
-	    		metaData.getWidth(), metaData.getHeight(), 1);
-	    finishRecord();
-	}
-	
-	public void submit(VkQueue queue){
+public class ImageCopyCmdBuffer extends CommandBuffer {
 
-		SubmitInfo submitInfo = new SubmitInfo(getHandlePointer());
-		submitInfo.submit(queue);
-	}
+  public ImageCopyCmdBuffer(VkDevice device, long commandPool) {
+    super(device, commandPool, VK_COMMAND_BUFFER_LEVEL_PRIMARY);
+  }
+
+  public void record(long stagingBuffer, long image, ImageMetaData metaData) {
+
+    beginRecord(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT);
+    copyBufferToImageCmd(stagingBuffer, image,
+        metaData.getWidth(), metaData.getHeight(), 1);
+    finishRecord();
+  }
+
+  public void submit(VkQueue queue) {
+
+    SubmitInfo submitInfo = new SubmitInfo(getHandlePointer());
+    submitInfo.submit(queue);
+  }
 
 }

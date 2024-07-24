@@ -2,26 +2,28 @@ package org.oreon.core.model;
 
 import org.oreon.core.scenegraph.NodeComponent;
 
-public class Model extends NodeComponent{
+public class Model extends NodeComponent {
 
-	private Mesh mesh;
-	private Material material;
-	
-	public Model() {}
+  private Mesh mesh;
+  private Material material;
 
-	public Mesh getMesh() {
-		return mesh;
-	}
-	public void setMesh(Mesh mesh) {
-		this.mesh = mesh;
-	}
+  public Model() {
+  }
 
-	public Material getMaterial() {
-		return material;
-	}
+  public Mesh getMesh() {
+    return mesh;
+  }
 
-	public void setMaterial(Material material) {
-		this.material = material;
-	}
+  public void setMesh(Mesh mesh) {
+    this.mesh = mesh;
+  }
+
+  public Material getMaterial() {
+    return material;
+  }
+
+  public void setMaterial(Material material) {
+    this.material = material;
+  }
 
 }

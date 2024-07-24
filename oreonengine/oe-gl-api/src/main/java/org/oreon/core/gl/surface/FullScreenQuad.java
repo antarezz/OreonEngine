@@ -12,54 +12,54 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class FullScreenQuad {
-	
-	@Getter @Setter
-	private GLTexture texture;
-	private GLShaderProgram shader;
-	private GLMeshVBO vao;
-	private RenderParameter config;
-	protected Vec2f[] texCoords;
-	
-	public FullScreenQuad(){
-		
-		shader = FullScreenQuadShader.getInstance();
-		config = new DefaultRenderParams();
-		vao = new GLMeshVBO();
-		vao.addData(MeshGenerator.NDCQuad2D());
-	}
-	
-	
-	public void render()
-	{
-		getConfig().enable();
-		getShader().bind();
-		getShader().updateUniforms(texture);
-		getVao().draw();
-		getConfig().disable();
-	}	
 
-	public RenderParameter getConfig() {
-		return config;
-	}
+  @Getter
+  @Setter
+  private GLTexture texture;
+  private GLShaderProgram shader;
+  private GLMeshVBO vao;
+  private RenderParameter config;
+  protected Vec2f[] texCoords;
 
-	public void setConfig(RenderParameter config) {
-		this.config = config;
-	}
+  public FullScreenQuad() {
 
-	public GLShaderProgram getShader() {
-		return shader;
-	}
+    shader = FullScreenQuadShader.getInstance();
+    config = new DefaultRenderParams();
+    vao = new GLMeshVBO();
+    vao.addData(MeshGenerator.NDCQuad2D());
+  }
 
-	public void setShader(GLShaderProgram shader) {
-		this.shader = shader;
-	}
 
-	public GLMeshVBO getVao() {
-		return vao;
-	}
+  public void render() {
+    getConfig().enable();
+    getShader().bind();
+    getShader().updateUniforms(texture);
+    getVao().draw();
+    getConfig().disable();
+  }
 
-	public void setVao(GLMeshVBO vao) {
-		this.vao = vao;
-	}
+  public RenderParameter getConfig() {
+    return config;
+  }
+
+  public void setConfig(RenderParameter config) {
+    this.config = config;
+  }
+
+  public GLShaderProgram getShader() {
+    return shader;
+  }
+
+  public void setShader(GLShaderProgram shader) {
+    this.shader = shader;
+  }
+
+  public GLMeshVBO getVao() {
+    return vao;
+  }
+
+  public void setVao(GLMeshVBO vao) {
+    this.vao = vao;
+  }
 
 }

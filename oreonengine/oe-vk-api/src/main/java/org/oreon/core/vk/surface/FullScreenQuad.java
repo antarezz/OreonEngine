@@ -4,7 +4,7 @@ import org.oreon.core.vk.image.VkImageView;
 
 public class FullScreenQuad {
 
-	public FullScreenQuad(VkImageView imageView) {
-		
-	}
+  public FullScreenQuad(VkImageView imageView) {
+
+  }
 }

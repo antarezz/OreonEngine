@@ -6,13 +6,13 @@ import static org.lwjgl.opengl.GL11.glFrontFace;
 
 import org.oreon.core.gl.pipeline.RenderParameter;
 
-public class CCW implements RenderParameter{
-	
-	public void enable(){
-		glFrontFace(GL_CCW);
-	}
+public class CCW implements RenderParameter {
 
-	public void disable(){
-		glFrontFace(GL_CW);
-	}
+  public void enable() {
+    glFrontFace(GL_CCW);
+  }
+
+  public void disable() {
+    glFrontFace(GL_CW);
+  }
 }

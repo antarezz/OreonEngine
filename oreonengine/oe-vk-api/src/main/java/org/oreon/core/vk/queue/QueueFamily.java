@@ -6,10 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class QueueFamily {
-	
-	private int index;
-	private int count;
-	private int flags;
-	private int presentFlag;
-	
+
+  private int index;
+  private int count;
+  private int flags;
+  private int presentFlag;
+
 }
