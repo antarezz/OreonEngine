@@ -38,7 +38,7 @@ layout (std140, row_major) uniform DirectionalLightViewProjections{
 //------- methods -------//
 //-----------------------//
 
-vec3 blurRgba16f(ivec2 computeCoord, int kernels, layout(rgba16f) image2D vImage)
+/*vec3 blurRgba16f(ivec2 computeCoord, int kernels, layout(rgba16f) image2D vImage)
 {
 	vec3 rgb = vec3(0,0,0);
 	
@@ -51,7 +51,7 @@ vec3 blurRgba16f(ivec2 computeCoord, int kernels, layout(rgba16f) image2D vImage
 	rgb *= 1/ pow(kernels*2+1,2);
 	
 	return rgb;
-}
+}*/
 
 float linearizeDepth(float depth)
 {

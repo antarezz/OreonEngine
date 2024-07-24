@@ -1,6 +1,7 @@
 package org.oreon.core.math;
 
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
+import org.oreon.core.context.ContextHolder;
 
 public class Transform {
 	
@@ -56,17 +57,17 @@ public class Transform {
 	
 	public Matrix4f getModelViewProjectionMatrix()
 	{
-		return BaseContext.getCamera().getViewProjectionMatrix().mul(getWorldMatrix());
+		return ContextHolder.getContext().getCamera().getViewProjectionMatrix().mul(getWorldMatrix());
 	}
 	
 	public Matrix4f getOriginModelViewProjectionMatrix()
 	{
-		return BaseContext.getCamera().getOriginViewProjectionMatrix().mul(getWorldMatrix());
+		return ContextHolder.getContext().getCamera().getOriginViewProjectionMatrix().mul(getWorldMatrix());
 	}
 	
 	public Matrix4f getXzOriginModelViewProjectionMatrix()
 	{
-		return BaseContext.getCamera().getXzOriginViewProjectionMatrix().mul(getWorldMatrix());
+		return ContextHolder.getContext().getCamera().getXzOriginViewProjectionMatrix().mul(getWorldMatrix());
 	}
 
 	public Vec3f getTranslation() {

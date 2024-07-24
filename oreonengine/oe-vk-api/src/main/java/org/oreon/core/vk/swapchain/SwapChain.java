@@ -51,7 +51,7 @@ import org.lwjgl.vulkan.VkExtent2D;
 import org.lwjgl.vulkan.VkPresentInfoKHR;
 import org.lwjgl.vulkan.VkQueue;
 import org.lwjgl.vulkan.VkSwapchainCreateInfoKHR;
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.model.Mesh;
 import org.oreon.core.model.Vertex.VertexLayout;
 import org.oreon.core.util.BufferUtil;
@@ -117,8 +117,8 @@ public class SwapChain {
 		this.device = logicalDevice.getHandle();
 		
 		extent = physicalDevice.getSwapChainCapabilities().getSurfaceCapabilities().currentExtent();
-	    extent.width(BaseContext.getWindow().getWidth());
-	    extent.height(BaseContext.getWindow().getHeight());
+	    extent.width(BaseOreonContext.getWindow().getWidth());
+	    extent.height(BaseOreonContext.getWindow().getHeight());
 		
 		int imageFormat = VK_FORMAT_B8G8R8A8_SRGB;
 	    int colorSpace = VK_COLOR_SPACE_SRGB_NONLINEAR_KHR;

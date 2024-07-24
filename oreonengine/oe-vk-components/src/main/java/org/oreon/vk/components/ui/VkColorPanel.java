@@ -15,7 +15,7 @@ import org.oreon.core.util.BufferUtil;
 import org.oreon.core.vk.command.CommandBuffer;
 import org.oreon.core.vk.command.SubmitInfo;
 import org.oreon.core.vk.context.DeviceManager.DeviceType;
-import org.oreon.core.vk.context.VkContext;
+import org.oreon.core.vk.context.VkOreonContext;
 import org.oreon.core.vk.device.LogicalDevice;
 import org.oreon.core.vk.device.VkDeviceBundle;
 import org.oreon.core.vk.framebuffer.VkFrameBufferObject;
@@ -40,7 +40,7 @@ public class VkColorPanel extends UIElement{
 		// flip y-axxis for vulkan coordinate system
 		getOrthographicMatrix().set(1, 1, -getOrthographicMatrix().get(1, 1));
 		
-		VkDeviceBundle deviceBundle = VkContext.getDeviceManager().getDeviceBundle(DeviceType.MAJOR_GRAPHICS_DEVICE);
+		VkDeviceBundle deviceBundle = VkOreonContext.getDeviceManager().getDeviceBundle(DeviceType.MAJOR_GRAPHICS_DEVICE);
 		LogicalDevice device = deviceBundle.getLogicalDevice();
 		
 		ShaderPipeline shaderPipeline = new ShaderPipeline(device.getHandle());

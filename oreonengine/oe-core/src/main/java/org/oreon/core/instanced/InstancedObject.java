@@ -3,7 +3,7 @@ package org.oreon.core.instanced;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.math.Matrix4f;
 import org.oreon.core.math.Vec3f;
 import org.oreon.core.scenegraph.RenderList;
@@ -40,7 +40,7 @@ public abstract class InstancedObject extends Renderable{
 		int index = 0;
 		
 		for (Matrix4f transform : getWorldMatrices()){
-			if (transform.getTranslation().sub(BaseContext.getCamera().getPosition()).length() < highPolyRange){
+			if (transform.getTranslation().sub(BaseOreonContext.getCamera().getPosition()).length() < highPolyRange){
 				getHighPolyIndices().add(index);
 			}
 

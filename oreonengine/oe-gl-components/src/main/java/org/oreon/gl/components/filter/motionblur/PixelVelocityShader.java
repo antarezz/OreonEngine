@@ -3,7 +3,7 @@ package org.oreon.gl.components.filter.motionblur;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
 import static org.lwjgl.opengl.GL13.glActiveTexture;
 
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.gl.pipeline.GLShaderProgram;
 import org.oreon.core.gl.texture.GLTexture;
 import org.oreon.core.math.Matrix4f;
@@ -26,7 +26,7 @@ public class PixelVelocityShader extends GLShaderProgram{
 	{
 		super();
 		
-		addComputeShader(ResourceLoader.loadShader(BaseContext.getConfig().getMultisampling_sampleCount() > 1 ?
+		addComputeShader(ResourceLoader.loadShader(BaseOreonContext.getConfig().getMultisampling_sampleCount() > 1 ?
 				"shaders/filter/motion_blur/pixelVelocity.comp" : "shaders/filter/motion_blur/pixelVelocity_singleSample.comp"));
 		
 		compileShader();
@@ -47,8 +47,8 @@ public class PixelVelocityShader extends GLShaderProgram{
 		glActiveTexture(GL_TEXTURE0);
 		depthmap.bind();
 		setUniformi("depthmap", 0);
-		setUniformf("windowWidth", BaseContext.getConfig().getFrameWidth());
-		setUniformf("windowHeight", BaseContext.getConfig().getFrameHeight());
+		setUniformf("windowWidth", BaseOreonContext.getConfig().getFrameWidth());
+		setUniformf("windowHeight", BaseOreonContext.getConfig().getFrameHeight());
 		setUniform("projectionMatrix", projectionMatrix);
 		setUniform("inverseViewProjectionMatrix", inverseViewProjectionMatrix);
 		setUniform("previousViewProjectionMatrix", previousViewProjectionMatrix);

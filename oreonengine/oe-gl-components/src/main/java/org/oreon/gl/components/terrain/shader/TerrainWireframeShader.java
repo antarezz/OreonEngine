@@ -6,7 +6,7 @@ import static org.lwjgl.opengl.GL13.glActiveTexture;
 
 import org.oreon.common.quadtree.ChunkConfig;
 import org.oreon.common.quadtree.QuadtreeNode;
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.gl.pipeline.GLShaderProgram;
 import org.oreon.core.math.Vec2f;
 import org.oreon.core.scenegraph.NodeComponentType;
@@ -68,7 +68,7 @@ public class TerrainWireframeShader extends GLShaderProgram{
 	{	
 		bindUniformBlock("Camera", Constants.CameraUniformBlockBinding);
 		
-		setUniform("clipplane", BaseContext.getConfig().getClipplane());
+		setUniform("clipplane", BaseOreonContext.getConfig().getClipplane());
 		
 		GLTerrainConfig terrConfig = object.getComponent(NodeComponentType.CONFIGURATION);
 		

@@ -42,7 +42,7 @@ import org.lwjgl.vulkan.VkPhysicalDeviceMemoryProperties;
 import org.lwjgl.vulkan.VkQueue;
 import org.oreon.common.ui.GUI;
 import org.oreon.common.ui.UIPanelLoader;
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.model.Mesh;
 import org.oreon.core.model.Vertex.VertexLayout;
 import org.oreon.core.scenegraph.NodeComponentType;
@@ -53,7 +53,7 @@ import org.oreon.core.util.MeshGenerator;
 import org.oreon.core.vk.command.CommandBuffer;
 import org.oreon.core.vk.command.SubmitInfo;
 import org.oreon.core.vk.context.DeviceManager.DeviceType;
-import org.oreon.core.vk.context.VkContext;
+import org.oreon.core.vk.context.VkOreonContext;
 import org.oreon.core.vk.descriptor.DescriptorSet;
 import org.oreon.core.vk.descriptor.DescriptorSetLayout;
 import org.oreon.core.vk.device.LogicalDevice;
@@ -106,9 +106,9 @@ public class VkGUI extends GUI{
 	
 	public void init(VkImageView underlayImageView, LongBuffer waitSemaphores) {
 
-		LogicalDevice device = VkContext.getDeviceManager()
+		LogicalDevice device = VkOreonContext.getDeviceManager()
 				.getLogicalDevice(DeviceType.MAJOR_GRAPHICS_DEVICE);
-		VkPhysicalDeviceMemoryProperties memoryProperties = VkContext.getDeviceManager()
+		VkPhysicalDeviceMemoryProperties memoryProperties = VkOreonContext.getDeviceManager()
 				.getPhysicalDevice(DeviceType.MAJOR_GRAPHICS_DEVICE).getMemoryProperties();
 		queue = device.getGraphicsQueue();
 		
@@ -256,8 +256,8 @@ public class VkGUI extends GUI{
 		public SingleAttachmentFbo(VkDevice device,
 				VkPhysicalDeviceMemoryProperties memoryProperties) {
 			
-			width = BaseContext.getConfig().getFrameWidth();
-			height = BaseContext.getConfig().getFrameHeight();
+			width = BaseOreonContext.getConfig().getFrameWidth();
+			height = BaseOreonContext.getConfig().getFrameHeight();
 			
 			VkImageBundle colorAttachment = new FrameBufferColorAttachment(device, memoryProperties,
 					width, height, VK_FORMAT_R16G16B16A16_SFLOAT, 1);

@@ -43,7 +43,7 @@ import org.lwjgl.vulkan.VkDevice;
 import org.lwjgl.vulkan.VkPhysicalDeviceMemoryProperties;
 import org.lwjgl.vulkan.VkQueue;
 import org.oreon.common.water.WaterConfig;
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.math.Vec2f;
 import org.oreon.core.math.Vec3f;
 import org.oreon.core.math.Vec4f;
@@ -60,7 +60,7 @@ import org.oreon.core.util.Util;
 import org.oreon.core.vk.command.CommandBuffer;
 import org.oreon.core.vk.command.SubmitInfo;
 import org.oreon.core.vk.context.DeviceManager.DeviceType;
-import org.oreon.core.vk.context.VkContext;
+import org.oreon.core.vk.context.VkOreonContext;
 import org.oreon.core.vk.descriptor.DescriptorPool;
 import org.oreon.core.vk.descriptor.DescriptorSet;
 import org.oreon.core.vk.descriptor.DescriptorSetLayout;
@@ -140,11 +140,11 @@ public class Water extends Renderable{
 	
 	public Water() {
 		
-		VkDeviceBundle deviceBundle = VkContext.getDeviceManager().getDeviceBundle(DeviceType.MAJOR_GRAPHICS_DEVICE);
+		VkDeviceBundle deviceBundle = VkOreonContext.getDeviceManager().getDeviceBundle(DeviceType.MAJOR_GRAPHICS_DEVICE);
 		LogicalDevice device = deviceBundle.getLogicalDevice();
 		DescriptorPool descriptorPool = device.getDescriptorPool(Thread.currentThread().getId());
 		VkPhysicalDeviceMemoryProperties memoryProperties = 
-				VkContext.getDeviceManager().getPhysicalDevice(DeviceType.MAJOR_GRAPHICS_DEVICE).getMemoryProperties();
+				VkOreonContext.getDeviceManager().getPhysicalDevice(DeviceType.MAJOR_GRAPHICS_DEVICE).getMemoryProperties();
 		graphicsQueue = device.getGraphicsQueue();
 		
 		offScreenReflectionRenderList = new RenderList();
@@ -153,8 +153,8 @@ public class Water extends Renderable{
 		refractionSecondaryCmdBuffers = new LinkedHashMap<String, CommandBuffer>();
 		reflectionFbo = new ReflectionRefractionFbo(device.getHandle(), memoryProperties);
 		refractionFbo = new ReflectionRefractionFbo(device.getHandle(), memoryProperties);
-	    VkContext.getResources().setReflectionFbo(reflectionFbo);
-	    VkContext.getResources().setRefractionFbo(refractionFbo);
+	    VkOreonContext.getResources().setReflectionFbo(reflectionFbo);
+	    VkOreonContext.getResources().setRefractionFbo(refractionFbo);
 		
 		getWorldTransform().setScaling(Constants.ZFAR,1,Constants.ZFAR);
 		getWorldTransform().setTranslation(-Constants.ZFAR/2,0,-Constants.ZFAR/2);
@@ -205,7 +205,7 @@ public class Water extends Renderable{
 				waterConfig.getWindSpeed(), waterConfig.getCapillarWavesSupression());
 		
 		normalRenderer = new NormalRenderer(
-				VkContext.getDeviceManager().getDeviceBundle(DeviceType.MAJOR_GRAPHICS_DEVICE),
+				VkOreonContext.getDeviceManager().getDeviceBundle(DeviceType.MAJOR_GRAPHICS_DEVICE),
 				waterConfig.getN(), waterConfig.getNormalStrength(),
 				fft.getDyImageView(), dySampler);
 		
@@ -290,9 +290,9 @@ public class Water extends Renderable{
 	    List<DescriptorSet> descriptorSets = new ArrayList<DescriptorSet>();
 		List<DescriptorSetLayout> descriptorSetLayouts = new ArrayList<DescriptorSetLayout>();
 		
-		descriptorSets.add(VkContext.getCamera().getDescriptorSet());
+		descriptorSets.add(VkOreonContext.getCamera().getDescriptorSet());
 		descriptorSets.add(descriptorSet);
-		descriptorSetLayouts.add(VkContext.getCamera().getDescriptorSetLayout());
+		descriptorSetLayouts.add(VkOreonContext.getCamera().getDescriptorSetLayout());
 		descriptorSetLayouts.add(descriptorSetLayout);
 	    
 	    VkVertexInput vertexInput = new VkVertexInput(VertexLayout.POS2D);
@@ -321,8 +321,8 @@ public class Water extends Renderable{
 		pushConstants.putFloat(waterConfig.getChoppiness());
 		pushConstants.putFloat(waterConfig.getKReflection());
 		pushConstants.putFloat(waterConfig.getKRefraction());
-		pushConstants.putInt(BaseContext.getConfig().getFrameWidth());
-		pushConstants.putInt(BaseContext.getConfig().getFrameHeight());
+		pushConstants.putInt(BaseOreonContext.getConfig().getFrameWidth());
+		pushConstants.putInt(BaseOreonContext.getConfig().getFrameHeight());
 		pushConstants.putInt(waterConfig.isDiffuse() ? 1 : 0);
 		pushConstants.putFloat(waterConfig.getEmission());
 		pushConstants.putFloat(waterConfig.getSpecularFactor());
@@ -341,19 +341,19 @@ public class Water extends Renderable{
 		
 		VkPipeline graphicsPipeline = new GraphicsTessellationPipeline(device.getHandle(),
 				graphicsShaderPipeline, vertexInput, VkUtil.createLongBuffer(descriptorSetLayouts),
-				BaseContext.getConfig().getFrameWidth(),
-				BaseContext.getConfig().getFrameHeight(),
-				VkContext.getResources().getOffScreenFbo().getRenderPass().getHandle(),
-				VkContext.getResources().getOffScreenFbo().getColorAttachmentCount(),
-				BaseContext.getConfig().getMultisampling_sampleCount(),
+				BaseOreonContext.getConfig().getFrameWidth(),
+				BaseOreonContext.getConfig().getFrameHeight(),
+				VkOreonContext.getResources().getOffScreenFbo().getRenderPass().getHandle(),
+				VkOreonContext.getResources().getOffScreenFbo().getColorAttachmentCount(),
+				BaseOreonContext.getConfig().getMultisampling_sampleCount(),
 				pushConstantsRange, VK_SHADER_STAGE_ALL_GRAPHICS,
 				16);
 		
 		CommandBuffer graphicsCommandBuffer = new SecondaryDrawCmdBuffer(
 	    		device.getHandle(), device.getGraphicsCommandPool(Thread.currentThread().getId()).getHandle(), 
 	    		graphicsPipeline.getHandle(), graphicsPipeline.getLayoutHandle(),
-	    		VkContext.getResources().getOffScreenFbo().getFrameBuffer().getHandle(),
-	    		VkContext.getResources().getOffScreenFbo().getRenderPass().getHandle(),
+	    		VkOreonContext.getResources().getOffScreenFbo().getFrameBuffer().getHandle(),
+	    		VkOreonContext.getResources().getOffScreenFbo().getRenderPass().getHandle(),
 	    		0,
 	    		VkUtil.createLongArray(descriptorSets),
 	    		vertexBufferObject.getHandle(),
@@ -362,19 +362,19 @@ public class Water extends Renderable{
 		
 		VkPipeline wireframeGraphicsPipeline = new GraphicsTessellationPipeline(device.getHandle(),
 				wireframeShaderPipeline, vertexInput, VkUtil.createLongBuffer(descriptorSetLayouts),
-				BaseContext.getConfig().getFrameWidth(),
-				BaseContext.getConfig().getFrameHeight(),
-				VkContext.getResources().getOffScreenFbo().getRenderPass().getHandle(),
-				VkContext.getResources().getOffScreenFbo().getColorAttachmentCount(),
-				BaseContext.getConfig().getMultisampling_sampleCount(),
+				BaseOreonContext.getConfig().getFrameWidth(),
+				BaseOreonContext.getConfig().getFrameHeight(),
+				VkOreonContext.getResources().getOffScreenFbo().getRenderPass().getHandle(),
+				VkOreonContext.getResources().getOffScreenFbo().getColorAttachmentCount(),
+				BaseOreonContext.getConfig().getMultisampling_sampleCount(),
 				pushConstantsRange, VK_SHADER_STAGE_ALL_GRAPHICS,
 				16);
 		
 		CommandBuffer wireframeCommandBuffer = new SecondaryDrawCmdBuffer(
 	    		device.getHandle(), device.getGraphicsCommandPool(Thread.currentThread().getId()).getHandle(), 
 	    		wireframeGraphicsPipeline.getHandle(), wireframeGraphicsPipeline.getLayoutHandle(),
-	    		VkContext.getResources().getOffScreenFbo().getFrameBuffer().getHandle(),
-	    		VkContext.getResources().getOffScreenFbo().getRenderPass().getHandle(),
+	    		VkOreonContext.getResources().getOffScreenFbo().getFrameBuffer().getHandle(),
+	    		VkOreonContext.getResources().getOffScreenFbo().getRenderPass().getHandle(),
 	    		0,
 	    		VkUtil.createLongArray(descriptorSets),
 	    		vertexBufferObject.getHandle(),
@@ -434,7 +434,7 @@ public class Water extends Renderable{
 		normalRenderer.render(VK_QUEUE_FAMILY_IGNORED);
 		
 		// render reflection
-		BaseContext.getConfig().setClipplane(clipplane);
+		BaseOreonContext.getConfig().setClipplane(clipplane);
 		
 		// mirror scene to clipplane
 		Scenegraph sceneGraph = getParentObject();
@@ -544,8 +544,8 @@ public class Water extends Renderable{
 		public ReflectionRefractionFbo(VkDevice device,
 				VkPhysicalDeviceMemoryProperties memoryProperties) {
 			
-			width = BaseContext.getConfig().getFrameWidth()/2;
-			height = BaseContext.getConfig().getFrameHeight()/2;
+			width = BaseOreonContext.getConfig().getFrameWidth()/2;
+			height = BaseOreonContext.getConfig().getFrameHeight()/2;
 			
 			VkImageBundle albedoBuffer = new FrameBufferColorAttachment(device, memoryProperties, width, height,
 					VK_FORMAT_R16G16B16A16_SFLOAT, 1);

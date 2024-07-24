@@ -15,9 +15,9 @@ import java.util.List;
 
 import org.lwjgl.vulkan.VkDevice;
 import org.lwjgl.vulkan.VkPhysicalDeviceMemoryProperties;
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.vk.command.CommandBuffer;
-import org.oreon.core.vk.context.VkContext;
+import org.oreon.core.vk.context.VkOreonContext;
 import org.oreon.core.vk.context.VkResources.VkDescriptorName;
 import org.oreon.core.vk.descriptor.DescriptorPool;
 import org.oreon.core.vk.descriptor.DescriptorSet;
@@ -104,17 +104,17 @@ public class DeferredLighting {
 		descriptorSets = new ArrayList<DescriptorSet>();
 		List<DescriptorSetLayout> descriptorSetLayouts = new ArrayList<DescriptorSetLayout>();
 		
-		descriptorSets.add(VkContext.getCamera().getDescriptorSet());
+		descriptorSets.add(VkOreonContext.getCamera().getDescriptorSet());
 		descriptorSets.add(descriptorSet);
-		descriptorSets.add(VkContext.getResources().getDescriptors().get(VkDescriptorName.DIRECTIONAL_LIGHT).getDescriptorSet());
-		descriptorSetLayouts.add(VkContext.getCamera().getDescriptorSetLayout());
+		descriptorSets.add(VkOreonContext.getResources().getDescriptors().get(VkDescriptorName.DIRECTIONAL_LIGHT).getDescriptorSet());
+		descriptorSetLayouts.add(VkOreonContext.getCamera().getDescriptorSetLayout());
 		descriptorSetLayouts.add(descriptorSetLayout);
-		descriptorSetLayouts.add(VkContext.getResources().getDescriptors().get(VkDescriptorName.DIRECTIONAL_LIGHT).getDescriptorSetLayout());
+		descriptorSetLayouts.add(VkOreonContext.getResources().getDescriptors().get(VkDescriptorName.DIRECTIONAL_LIGHT).getDescriptorSetLayout());
 		
 		int pushConstantRange = Float.BYTES * 1 + Integer.BYTES * 1;
 		pushConstants = memAlloc(pushConstantRange);
-		pushConstants.putInt(BaseContext.getConfig().getMultisampling_sampleCount());
-		pushConstants.putFloat(BaseContext.getConfig().getSightRange());
+		pushConstants.putInt(BaseOreonContext.getConfig().getMultisampling_sampleCount());
+		pushConstants.putFloat(BaseOreonContext.getConfig().getSightRange());
 		pushConstants.flip();
 		
 		ShaderModule shader = new ComputeShader(device, "shaders/deferredLighting.comp.spv");

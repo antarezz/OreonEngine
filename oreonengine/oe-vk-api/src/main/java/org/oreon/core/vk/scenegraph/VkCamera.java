@@ -9,7 +9,7 @@ import org.oreon.core.math.Vec3f;
 import org.oreon.core.scenegraph.Camera;
 import org.oreon.core.util.BufferUtil;
 import org.oreon.core.vk.context.DeviceManager.DeviceType;
-import org.oreon.core.vk.context.VkContext;
+import org.oreon.core.vk.context.VkOreonContext;
 import org.oreon.core.vk.context.VkResources.VkDescriptorName;
 import org.oreon.core.vk.descriptor.DescriptorSet;
 import org.oreon.core.vk.descriptor.DescriptorSetLayout;
@@ -37,10 +37,10 @@ public class VkCamera extends Camera{
 	@Override
 	public void init() {
 		
-		VkDevice device = VkContext.getDeviceManager().getLogicalDevice(DeviceType.MAJOR_GRAPHICS_DEVICE).getHandle();
+		VkDevice device = VkOreonContext.getDeviceManager().getLogicalDevice(DeviceType.MAJOR_GRAPHICS_DEVICE).getHandle();
 		
 	    uniformBuffer = new VkUniformBuffer(
-	    		device, VkContext.getDeviceManager().getPhysicalDevice(DeviceType.MAJOR_GRAPHICS_DEVICE)
+	    		device, VkOreonContext.getDeviceManager().getPhysicalDevice(DeviceType.MAJOR_GRAPHICS_DEVICE)
 	    		.getMemoryProperties(), BufferUtil.createByteBuffer(floatBuffer));
 	    
 	    descriptorSetLayout = new DescriptorSetLayout(device, 1);
@@ -49,13 +49,13 @@ public class VkCamera extends Camera{
 	    descriptorSetLayout.create();
 		
 	    descriptorSet = new DescriptorSet(device,
-	    		VkContext.getDeviceManager().getLogicalDevice(DeviceType.MAJOR_GRAPHICS_DEVICE)
+	    		VkOreonContext.getDeviceManager().getLogicalDevice(DeviceType.MAJOR_GRAPHICS_DEVICE)
 	    		.getDescriptorPool(Thread.currentThread().getId()).getHandle(),
 	    		descriptorSetLayout.getHandlePointer());
 	    descriptorSet.updateDescriptorBuffer(uniformBuffer.getHandle(), bufferSize, 0, 0,
 	    		VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER);
 	    
-	    VkContext.getResources().getDescriptors().put(VkDescriptorName.CAMERA, new VkDescriptor(descriptorSet, descriptorSetLayout));
+	    VkOreonContext.getResources().getDescriptors().put(VkDescriptorName.CAMERA, new VkDescriptor(descriptorSet, descriptorSetLayout));
 	}
 	
 	@Override

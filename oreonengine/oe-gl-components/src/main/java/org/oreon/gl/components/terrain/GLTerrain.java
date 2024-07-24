@@ -10,7 +10,7 @@ import org.oreon.common.quadtree.QuadtreeCache;
 import org.oreon.common.quadtree.QuadtreeConfig;
 import org.oreon.common.quadtree.QuadtreeNode;
 import org.oreon.common.terrain.TerrainQuadtree;
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.gl.memory.GLPatchVBO;
 import org.oreon.core.gl.memory.GLShaderStorageBuffer;
 import org.oreon.core.gl.pipeline.GLShaderProgram;
@@ -78,10 +78,10 @@ public class GLTerrain extends Node{
 	{	
 		ssbo0 = new GLShaderStorageBuffer();
 		ByteBuffer byteBuffer = memAlloc(Float.BYTES * 8 + Integer.BYTES * 4);
-		byteBuffer.putFloat(BaseContext.getConfig().getFogColor().getX());
-		byteBuffer.putFloat(BaseContext.getConfig().getFogColor().getY());
-		byteBuffer.putFloat(BaseContext.getConfig().getFogColor().getZ());
-		byteBuffer.putFloat(BaseContext.getConfig().getSightRange());
+		byteBuffer.putFloat(BaseOreonContext.getConfig().getFogColor().getX());
+		byteBuffer.putFloat(BaseOreonContext.getConfig().getFogColor().getY());
+		byteBuffer.putFloat(BaseOreonContext.getConfig().getFogColor().getZ());
+		byteBuffer.putFloat(BaseOreonContext.getConfig().getSightRange());
 		byteBuffer.putInt(config.isDiamond_square() ? 1 : 0);
 		byteBuffer.putInt(config.getTessellationFactor());
 		byteBuffer.putFloat(config.getTessellationSlope());

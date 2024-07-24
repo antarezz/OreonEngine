@@ -5,7 +5,7 @@ import static org.lwjgl.opengl.GL13.glActiveTexture;
 
 import java.util.List;
 
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.gl.pipeline.GLShaderProgram;
 import org.oreon.core.instanced.InstancedObject;
 import org.oreon.core.model.Material;
@@ -50,7 +50,7 @@ public class TreeShadowShader extends GLShaderProgram{
 	
 	public void updateUniforms(Renderable object){
 		
-		setUniform("clipplane", BaseContext.getConfig().getClipplane());
+		setUniform("clipplane", BaseOreonContext.getConfig().getClipplane());
 		bindUniformBlock("Camera",Constants.CameraUniformBlockBinding);
 		bindUniformBlock("LightViewProjections",Constants.LightMatricesUniformBlockBinding);
 		bindUniformBlock("worldMatrices", 0);

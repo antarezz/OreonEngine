@@ -18,7 +18,7 @@ import org.oreon.core.scenegraph.NodeComponentType;
 import org.oreon.core.util.BufferUtil;
 import org.oreon.core.util.MeshGenerator;
 import org.oreon.core.vk.context.DeviceManager.DeviceType;
-import org.oreon.core.vk.context.VkContext;
+import org.oreon.core.vk.context.VkOreonContext;
 import org.oreon.core.vk.descriptor.DescriptorSet;
 import org.oreon.core.vk.descriptor.DescriptorSetLayout;
 import org.oreon.core.vk.device.LogicalDevice;
@@ -38,9 +38,9 @@ public class Planet extends Node{
 	
 	public Planet() {
 		
-		LogicalDevice device = VkContext.getDeviceManager().getLogicalDevice(DeviceType.MAJOR_GRAPHICS_DEVICE);
+		LogicalDevice device = VkOreonContext.getDeviceManager().getLogicalDevice(DeviceType.MAJOR_GRAPHICS_DEVICE);
 		VkPhysicalDeviceMemoryProperties memoryProperties = 
-				VkContext.getDeviceManager().getPhysicalDevice(DeviceType.MAJOR_GRAPHICS_DEVICE).getMemoryProperties();
+				VkOreonContext.getDeviceManager().getPhysicalDevice(DeviceType.MAJOR_GRAPHICS_DEVICE).getMemoryProperties();
 		
 		Vec2f[] mesh = MeshGenerator.TerrainChunkMesh();
 		ByteBuffer vertexBuffer = BufferUtil.createByteBuffer(mesh);
@@ -70,8 +70,8 @@ public class Planet extends Node{
 	    
 	    List<DescriptorSet> descriptorSets = new ArrayList<DescriptorSet>();
 		List<DescriptorSetLayout> descriptorSetLayouts = new ArrayList<DescriptorSetLayout>();
-	    descriptorSets.add(VkContext.getCamera().getDescriptorSet());
-		descriptorSetLayouts.add(VkContext.getCamera().getDescriptorSetLayout());
+	    descriptorSets.add(VkOreonContext.getCamera().getDescriptorSet());
+		descriptorSetLayouts.add(VkOreonContext.getCamera().getDescriptorSetLayout());
 	    
 	    VkRenderInfo renderInfo = VkRenderInfo.builder().vertexInput(vertexInput)
 	    		.shaderPipeline(shaderPipeline).descriptorSets(descriptorSets)

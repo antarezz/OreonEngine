@@ -8,7 +8,7 @@ import static org.lwjgl.opengl.GL30.GL_RGBA32F;
 import static org.lwjgl.opengl.GL42.glBindImageTexture;
 import static org.lwjgl.opengl.GL43.glDispatchCompute;
 
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.gl.texture.GLTexture;
 import org.oreon.core.gl.wrapper.texture.TextureImage2D;
 import org.oreon.core.image.Image.ImageFormat;
@@ -51,7 +51,7 @@ public class SampleCoverage {
 		glBindImageTexture(4, specularEmissionBloomMaskSingleSample.getHandle(), 0, false, 0, GL_WRITE_ONLY, GL_RGBA16F);
 		glBindImageTexture(5, specularEmissionBloomMask.getHandle(), 0, false, 0, GL_READ_ONLY, GL_RGBA16F);
 		shader.updateUniforms();
-		glDispatchCompute(BaseContext.getConfig().getFrameWidth()/16, BaseContext.getConfig().getFrameHeight()/16, 1);	
+		glDispatchCompute(BaseOreonContext.getConfig().getFrameWidth()/16, BaseOreonContext.getConfig().getFrameHeight()/16, 1);
 	}
 
 }

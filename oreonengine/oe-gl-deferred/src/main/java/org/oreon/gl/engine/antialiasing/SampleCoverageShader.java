@@ -1,6 +1,6 @@
 package org.oreon.gl.engine.antialiasing;
 
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.gl.pipeline.GLShaderProgram;
 import org.oreon.core.util.ResourceLoader;
 
@@ -30,7 +30,7 @@ public class SampleCoverageShader extends GLShaderProgram{
 	
 	public void updateUniforms(){
 		
-		setUniformi("multisamples", BaseContext.getConfig().getMultisampling_sampleCount());
+		setUniformi("multisamples", BaseOreonContext.getConfig().getMultisampling_sampleCount());
 	}
 
 }

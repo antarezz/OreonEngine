@@ -8,7 +8,7 @@ import java.util.Map;
 
 import org.oreon.common.quadtree.QuadtreeCache;
 import org.oreon.common.quadtree.QuadtreeNode;
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.math.Transform;
 import org.oreon.core.math.Vec2f;
 import org.oreon.core.scenegraph.NodeComponent;
@@ -16,7 +16,7 @@ import org.oreon.core.scenegraph.NodeComponentType;
 import org.oreon.core.util.BufferUtil;
 import org.oreon.core.vk.command.CommandBuffer;
 import org.oreon.core.vk.context.DeviceManager.DeviceType;
-import org.oreon.core.vk.context.VkContext;
+import org.oreon.core.vk.context.VkOreonContext;
 import org.oreon.core.vk.device.LogicalDevice;
 import org.oreon.core.vk.pipeline.VkPipeline;
 import org.oreon.core.vk.scenegraph.VkMeshData;
@@ -39,7 +39,7 @@ public class TerrainChunk extends QuadtreeNode{
 			e.printStackTrace();
 		}
 		
-		LogicalDevice device = VkContext.getDeviceManager().getLogicalDevice(DeviceType.MAJOR_GRAPHICS_DEVICE);
+		LogicalDevice device = VkOreonContext.getDeviceManager().getLogicalDevice(DeviceType.MAJOR_GRAPHICS_DEVICE);
 		
 		VkRenderInfo renderInfo = getComponent(NodeComponentType.MAIN_RENDERINFO);
 		VkMeshData meshData = getComponent(NodeComponentType.MESH_DATA);
@@ -68,11 +68,11 @@ public class TerrainChunk extends QuadtreeNode{
 		VkPipeline graphicsPipeline = new GraphicsTessellationPipeline(device.getHandle(),
 				renderInfo.getShaderPipeline(), renderInfo.getVertexInput(),
 				VkUtil.createLongBuffer(renderInfo.getDescriptorSetLayouts()),
-				BaseContext.getConfig().getFrameWidth(),
-				BaseContext.getConfig().getFrameHeight(),
-				VkContext.getResources().getOffScreenFbo().getRenderPass().getHandle(),
-				VkContext.getResources().getOffScreenFbo().getColorAttachmentCount(),
-				BaseContext.getConfig().getMultisampling_sampleCount(),
+				BaseOreonContext.getConfig().getFrameWidth(),
+				BaseOreonContext.getConfig().getFrameHeight(),
+				VkOreonContext.getResources().getOffScreenFbo().getRenderPass().getHandle(),
+				VkOreonContext.getResources().getOffScreenFbo().getColorAttachmentCount(),
+				BaseOreonContext.getConfig().getMultisampling_sampleCount(),
 				pushConstantsRange, VK_SHADER_STAGE_ALL_GRAPHICS,
 				16);
 		
@@ -80,8 +80,8 @@ public class TerrainChunk extends QuadtreeNode{
 	    		device.getHandle(),
 	    		device.getGraphicsCommandPool(Thread.currentThread().getId()).getHandle(), 
 	    		graphicsPipeline.getHandle(), graphicsPipeline.getLayoutHandle(),
-	    		VkContext.getResources().getOffScreenFbo().getFrameBuffer().getHandle(),
-	    		VkContext.getResources().getOffScreenFbo().getRenderPass().getHandle(),
+	    		VkOreonContext.getResources().getOffScreenFbo().getFrameBuffer().getHandle(),
+	    		VkOreonContext.getResources().getOffScreenFbo().getRenderPass().getHandle(),
 	    		0,
 	    		VkUtil.createLongArray(renderInfo.getDescriptorSets()),
 	    		meshData.getVertexBufferObject().getHandle(),

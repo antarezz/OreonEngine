@@ -28,7 +28,7 @@ import org.oreon.core.util.BufferUtil;
 import org.oreon.core.vk.command.CommandBuffer;
 import org.oreon.core.vk.command.SubmitInfo;
 import org.oreon.core.vk.context.DeviceManager.DeviceType;
-import org.oreon.core.vk.context.VkContext;
+import org.oreon.core.vk.context.VkOreonContext;
 import org.oreon.core.vk.descriptor.DescriptorPool;
 import org.oreon.core.vk.descriptor.DescriptorSet;
 import org.oreon.core.vk.descriptor.DescriptorSetLayout;
@@ -63,11 +63,11 @@ public class VkTexturePanel  extends UIElement{
 		// flip y-axxis for vulkan coordinate system
 		getOrthographicMatrix().set(1, 1, -getOrthographicMatrix().get(1, 1));
 		
-		VkDeviceBundle deviceBundle = VkContext.getDeviceManager().getDeviceBundle(DeviceType.MAJOR_GRAPHICS_DEVICE);
+		VkDeviceBundle deviceBundle = VkOreonContext.getDeviceManager().getDeviceBundle(DeviceType.MAJOR_GRAPHICS_DEVICE);
 		LogicalDevice device = deviceBundle.getLogicalDevice();
 		DescriptorPool descriptorPool = device.getDescriptorPool(Thread.currentThread().getId());
 		VkPhysicalDeviceMemoryProperties memoryProperties = 
-				VkContext.getDeviceManager().getPhysicalDevice(DeviceType.MAJOR_GRAPHICS_DEVICE).getMemoryProperties();
+				VkOreonContext.getDeviceManager().getPhysicalDevice(DeviceType.MAJOR_GRAPHICS_DEVICE).getMemoryProperties();
 		
 		VkImage fontsImage = VkImageHelper.loadImageFromFile(
 				device.getHandle(), memoryProperties,

@@ -7,7 +7,7 @@ import static org.lwjgl.opengl.GL30.GL_RGBA16F;
 import static org.lwjgl.opengl.GL42.glBindImageTexture;
 import static org.lwjgl.opengl.GL43.glDispatchCompute;
 
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.gl.framebuffer.GLFramebuffer;
 import org.oreon.core.gl.surface.FullScreenQuad;
 import org.oreon.core.gl.texture.GLTexture;
@@ -40,19 +40,19 @@ public class DepthOfField {
 		horizontalBlurShader = DepthOfFieldHorizontalBlurShader.getInstance();
 		verticalBlurShader = DepthOfFieldVerticalBlurShader.getInstance();
 		
-		horizontalBlurSceneTexture = new TextureImage2D(BaseContext.getConfig().getFrameWidth(),
-				BaseContext.getConfig().getFrameHeight(), ImageFormat.RGBA16FLOAT,
+		horizontalBlurSceneTexture = new TextureImage2D(BaseOreonContext.getConfig().getFrameWidth(),
+				BaseOreonContext.getConfig().getFrameHeight(), ImageFormat.RGBA16FLOAT,
 				SamplerFilter.Bilinear, TextureWrapMode.ClampToEdge);
 		
-		verticalBlurSceneTexture = new TextureImage2D(BaseContext.getConfig().getFrameWidth(),
-				BaseContext.getConfig().getFrameHeight(), ImageFormat.RGBA16FLOAT,
+		verticalBlurSceneTexture = new TextureImage2D(BaseOreonContext.getConfig().getFrameWidth(),
+				BaseOreonContext.getConfig().getFrameHeight(), ImageFormat.RGBA16FLOAT,
 				SamplerFilter.Bilinear, TextureWrapMode.ClampToEdge); 
 				
-				new TextureStorage2D(BaseContext.getConfig().getFrameWidth(),
-				BaseContext.getConfig().getFrameHeight(), 1, ImageFormat.RGBA16FLOAT);
+				new TextureStorage2D(BaseOreonContext.getConfig().getFrameWidth(),
+				BaseOreonContext.getConfig().getFrameHeight(), 1, ImageFormat.RGBA16FLOAT);
 		
-		downsampledSceneSampler = new TextureImage2D((int)(BaseContext.getConfig().getFrameWidth()/2f),
-				(int)(BaseContext.getConfig().getFrameWidth()/2f), ImageFormat.RGBA16FLOAT,
+		downsampledSceneSampler = new TextureImage2D((int)(BaseOreonContext.getConfig().getFrameWidth()/2f),
+				(int)(BaseOreonContext.getConfig().getFrameWidth()/2f), ImageFormat.RGBA16FLOAT,
 				SamplerFilter.Bilinear, TextureWrapMode.ClampToEdge);
 		
 		fullScreenQuad = new FullScreenQuad();
@@ -78,14 +78,14 @@ public class DepthOfField {
 		horizontalBlurShader.bind();
 		glBindImageTexture(0, horizontalBlurSceneTexture.getHandle(), 0, false, 0, GL_WRITE_ONLY, GL_RGBA16F);
 		horizontalBlurShader.updateUniforms(depthmap, sceneSampler, downsampledSceneSampler);
-		glDispatchCompute(BaseContext.getConfig().getFrameWidth()/8, BaseContext.getConfig().getFrameHeight()/8, 1);	
+		glDispatchCompute(BaseOreonContext.getConfig().getFrameWidth()/8, BaseOreonContext.getConfig().getFrameHeight()/8, 1);
 		glFinish();
 		
 		verticalBlurShader.bind();
 		glBindImageTexture(0, horizontalBlurSceneTexture.getHandle(), 0, false, 0, GL_READ_ONLY, GL_RGBA16F);
 		glBindImageTexture(1, verticalBlurSceneTexture.getHandle(), 0, false, 0, GL_WRITE_ONLY, GL_RGBA16F);
 		verticalBlurShader.updateUniforms(depthmap);
-		glDispatchCompute(BaseContext.getConfig().getFrameWidth()/8, BaseContext.getConfig().getFrameHeight()/8, 1);
+		glDispatchCompute(BaseOreonContext.getConfig().getFrameWidth()/8, BaseOreonContext.getConfig().getFrameHeight()/8, 1);
 		glFinish();
 	}
 

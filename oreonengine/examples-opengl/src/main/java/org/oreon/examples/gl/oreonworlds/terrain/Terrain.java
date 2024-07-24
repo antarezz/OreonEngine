@@ -1,7 +1,7 @@
 package org.oreon.examples.gl.oreonworlds.terrain;
 
 import org.lwjgl.glfw.GLFW;
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.gl.pipeline.GLShaderProgram;
 import org.oreon.gl.components.terrain.GLTerrain;
 
@@ -18,7 +18,7 @@ public class Terrain extends GLTerrain{
 		
 		
 		// create new heightmap from random fractals
-		if (BaseContext.getInput().isKeyPushed(GLFW.GLFW_KEY_L)){
+		if (BaseOreonContext.getInput().isKeyPushed(GLFW.GLFW_KEY_L)){
 			
 //			List<FractalMap> newFractals = new ArrayList<>();
 //			

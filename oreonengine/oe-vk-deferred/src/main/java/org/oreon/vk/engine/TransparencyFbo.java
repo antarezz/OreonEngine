@@ -19,7 +19,7 @@ import java.nio.LongBuffer;
 
 import org.lwjgl.vulkan.VkDevice;
 import org.lwjgl.vulkan.VkPhysicalDeviceMemoryProperties;
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.vk.framebuffer.FrameBufferColorAttachment;
 import org.oreon.core.vk.framebuffer.FrameBufferDepthAttachment;
 import org.oreon.core.vk.framebuffer.VkFrameBuffer;
@@ -31,8 +31,8 @@ public class TransparencyFbo extends VkFrameBufferObject{
 	
 	public TransparencyFbo(VkDevice device, VkPhysicalDeviceMemoryProperties memoryProperties) {
 		
-		width = BaseContext.getConfig().getFrameWidth();
-		height = BaseContext.getConfig().getFrameHeight();
+		width = BaseOreonContext.getConfig().getFrameWidth();
+		height = BaseOreonContext.getConfig().getFrameHeight();
 		
 		VkImageBundle albedoAttachment = new FrameBufferColorAttachment(device, memoryProperties,
 				width, height, VK_FORMAT_R16G16B16A16_SFLOAT, 1);

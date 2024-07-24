@@ -3,7 +3,7 @@ package org.oreon.gl.engine.deferred;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
 import static org.lwjgl.opengl.GL13.glActiveTexture;
 
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.gl.pipeline.GLShaderProgram;
 import org.oreon.core.gl.texture.GLTexture;
 import org.oreon.core.util.Constants;
@@ -46,18 +46,18 @@ public class DeferredLightingShader extends GLShaderProgram{
 		bindUniformBlock("Camera", Constants.CameraUniformBlockBinding);
 		bindUniformBlock("DirectionalLight", Constants.DirectionalLightUniformBlockBinding);	
 		bindUniformBlock("DirectionalLightViewProjections",Constants.LightMatricesUniformBlockBinding);
-		setUniformf("sightRangeFactor", BaseContext.getConfig().getSightRange());
-		setUniform("fogColor", BaseContext.getConfig().getFogColor());
-		setUniformi("shadowsEnable", BaseContext.getConfig().isShadowsEnable() ? 1 : 0);
-		setUniformi("shadowsQuality", BaseContext.getConfig().getShadowsQuality());
+		setUniformf("sightRangeFactor", BaseOreonContext.getConfig().getSightRange());
+		setUniform("fogColor", BaseOreonContext.getConfig().getFogColor());
+		setUniformi("shadowsEnable", BaseOreonContext.getConfig().isShadowsEnable() ? 1 : 0);
+		setUniformi("shadowsQuality", BaseOreonContext.getConfig().getShadowsQuality());
 		
-		if (BaseContext.getConfig().isShadowsEnable()) {
+		if (BaseOreonContext.getConfig().isShadowsEnable()) {
 			glActiveTexture(GL_TEXTURE0);
 			pssm.bind();
 			setUniformi("pssm", 0);
 		}
 		
-		setUniformi("ssaoEnable", BaseContext.getConfig().isSsaoEnabled() ? 1 : 0);
-		setUniformi("numSamples", BaseContext.getConfig().getMultisampling_sampleCount());
+		setUniformi("ssaoEnable", BaseOreonContext.getConfig().isSsaoEnabled() ? 1 : 0);
+		setUniformi("numSamples", BaseOreonContext.getConfig().getMultisampling_sampleCount());
 	}
 }

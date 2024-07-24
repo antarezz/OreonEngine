@@ -22,14 +22,14 @@ import java.util.List;
 import org.lwjgl.vulkan.VkDevice;
 import org.lwjgl.vulkan.VkPhysicalDeviceMemoryProperties;
 import org.lwjgl.vulkan.VkQueue;
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.math.Vec4f;
 import org.oreon.core.util.BufferUtil;
 import org.oreon.core.util.Util;
 import org.oreon.core.vk.command.CommandBuffer;
 import org.oreon.core.vk.command.CommandPool;
 import org.oreon.core.vk.command.SubmitInfo;
-import org.oreon.core.vk.context.VkContext;
+import org.oreon.core.vk.context.VkOreonContext;
 import org.oreon.core.vk.descriptor.DescriptorPool;
 import org.oreon.core.vk.descriptor.DescriptorSet;
 import org.oreon.core.vk.descriptor.DescriptorSetLayout;
@@ -118,7 +118,7 @@ public class SSAO {
 		// ssao resources
 		int pushConstantRange = Float.BYTES * 21;
 		ByteBuffer pushConstants = memAlloc(pushConstantRange);
-		pushConstants.put(BufferUtil.createByteBuffer(BaseContext.getCamera().getProjectionMatrix()));
+		pushConstants.put(BufferUtil.createByteBuffer(BaseOreonContext.getCamera().getProjectionMatrix()));
 		pushConstants.putFloat(1f);
 		pushConstants.putFloat(0.02f);
 		pushConstants.putFloat(kernelSize);
@@ -171,9 +171,9 @@ public class SSAO {
 		List<DescriptorSet> descriptorSets = new ArrayList<DescriptorSet>();
 		List<DescriptorSetLayout> descriptorSetLayouts = new ArrayList<DescriptorSetLayout>();
 		
-		descriptorSets.add(VkContext.getCamera().getDescriptorSet());
+		descriptorSets.add(VkOreonContext.getCamera().getDescriptorSet());
 		descriptorSets.add(ssaoDescriptorSet);
-		descriptorSetLayouts.add(VkContext.getCamera().getDescriptorSetLayout());
+		descriptorSetLayouts.add(VkOreonContext.getCamera().getDescriptorSetLayout());
 		descriptorSetLayouts.add(ssaoDescriptorSetLayout);
 		
 		ssaoPipeline = new VkPipeline(device);

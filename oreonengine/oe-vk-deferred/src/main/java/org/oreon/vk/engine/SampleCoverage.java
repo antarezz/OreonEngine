@@ -16,7 +16,7 @@ import java.util.List;
 
 import org.lwjgl.vulkan.VkDevice;
 import org.lwjgl.vulkan.VkPhysicalDeviceMemoryProperties;
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.vk.command.CommandBuffer;
 import org.oreon.core.vk.descriptor.DescriptorPool;
 import org.oreon.core.vk.descriptor.DescriptorSet;
@@ -128,7 +128,7 @@ public class SampleCoverage {
 		
 		int pushConstantRange = Float.BYTES * 1 + Integer.BYTES * 1;
 		pushConstants = memAlloc(pushConstantRange);
-		pushConstants.putInt(BaseContext.getConfig().getMultisampling_sampleCount());
+		pushConstants.putInt(BaseOreonContext.getConfig().getMultisampling_sampleCount());
 		pushConstants.putFloat(discontinuitiestThreshold);
 		pushConstants.flip();
 		

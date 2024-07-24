@@ -3,7 +3,7 @@ package org.oreon.gl.components.filter.lensflare;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.gl.wrapper.texture.TextureImage2D;
 import org.oreon.core.image.Image.SamplerFilter;
 import org.oreon.core.light.Light;
@@ -14,7 +14,8 @@ import org.oreon.core.math.Vec2f;
 public class LensFlare {
 	
 	private List<LensFlareTexturePanel> lensFlareTexturePanels = new ArrayList<LensFlareTexturePanel>();
-	private Vec2f windowMidPos = new Vec2f(BaseContext.getConfig().getFrameWidth()/2f, BaseContext.getConfig().getFrameHeight()/2f);
+	private Vec2f windowMidPos = new Vec2f(
+      BaseOreonContext.getConfig().getFrameWidth()/2f, BaseOreonContext.getConfig().getFrameHeight()/2f);
 	
 //	private float occlusionThreshold = 80000f;
 	
@@ -103,7 +104,7 @@ public class LensFlare {
 	
 	public void render(){
 		
-		if (BaseContext.getConfig().isRenderWireframe())
+		if (BaseOreonContext.getConfig().isRenderWireframe())
 			return;
 		
 		for (Light light : LightHandler.getLights()){

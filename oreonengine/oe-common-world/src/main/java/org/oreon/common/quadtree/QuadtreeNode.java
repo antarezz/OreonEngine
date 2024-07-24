@@ -2,7 +2,7 @@ package org.oreon.common.quadtree;
 
 import java.util.Map;
 
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.math.Transform;
 import org.oreon.core.math.Vec2f;
 import org.oreon.core.math.Vec3f;
@@ -68,7 +68,7 @@ public abstract class QuadtreeNode extends Renderable{
 	public void render()
 	{
 		boolean renderChunk = false;
-		if (BaseContext.getConfig().isRenderReflection() || BaseContext.getConfig().isRenderRefraction()){
+		if (BaseOreonContext.getConfig().isRenderReflection() || BaseOreonContext.getConfig().isRenderRefraction()){
 			// render only first two lod's for reflection/refraction
 			renderChunk = (isleaf && chunkConfig.getLod() == 0) || (!isleaf && chunkConfig.getLod() == 0);// || (!isleaf && lod == 1);
 		}
@@ -130,7 +130,7 @@ public abstract class QuadtreeNode extends Renderable{
 	
 	private void updateChildNodes(){
 		
-		float distance = (BaseContext.getCamera().getPosition().sub(worldPos)).length();
+		float distance = (BaseOreonContext.getCamera().getPosition().sub(worldPos)).length();
 		
 		if (distance < quadtreeConfig.getLod_range()[chunkConfig.getLod()]){
 			add4ChildNodes(chunkConfig.getLod()+1);

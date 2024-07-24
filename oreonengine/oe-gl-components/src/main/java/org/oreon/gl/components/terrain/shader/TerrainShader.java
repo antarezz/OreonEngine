@@ -9,8 +9,8 @@ import static org.lwjgl.opengl.GL13.glActiveTexture;
 
 import org.oreon.common.quadtree.ChunkConfig;
 import org.oreon.common.quadtree.QuadtreeNode;
-import org.oreon.core.context.BaseContext;
-import org.oreon.core.gl.context.GLContext;
+import org.oreon.core.context.BaseOreonContext;
+import org.oreon.core.gl.context.GLOreonContext;
 import org.oreon.core.gl.pipeline.GLShaderProgram;
 import org.oreon.core.math.Vec2f;
 import org.oreon.core.scenegraph.NodeComponentType;
@@ -84,10 +84,10 @@ public class TerrainShader extends GLShaderProgram {
 		bindUniformBlock("Camera", Constants.CameraUniformBlockBinding);
 		bindUniformBlock("DirectionalLight", Constants.DirectionalLightUniformBlockBinding);
 		
-		setUniform("clipplane", BaseContext.getConfig().getClipplane());
-		setUniformi("isRefraction", BaseContext.getConfig().isRenderRefraction() ? 1 : 0);
-		setUniformi("isReflection", BaseContext.getConfig().isRenderReflection() ? 1 : 0);
-		setUniformi("isCameraUnderWater", BaseContext.getConfig().isRenderUnderwater() ? 1 : 0);
+		setUniform("clipplane", BaseOreonContext.getConfig().getClipplane());
+		setUniformi("isRefraction", BaseOreonContext.getConfig().isRenderRefraction() ? 1 : 0);
+		setUniformi("isReflection", BaseOreonContext.getConfig().isRenderReflection() ? 1 : 0);
+		setUniformi("isCameraUnderWater", BaseOreonContext.getConfig().isRenderUnderwater() ? 1 : 0);
 		
 		GLTerrainConfig terrConfig = object.getComponent(NodeComponentType.CONFIGURATION);
 		ChunkConfig vChunkConfig = ((QuadtreeNode) object).getChunkConfig();
@@ -121,14 +121,14 @@ public class TerrainShader extends GLShaderProgram {
 		setUniformf("reflectionOffset", terrConfig.getReflectionOffset());
 		
 		glActiveTexture(GL_TEXTURE3);
-		GLContext.getResources().getUnderwaterCausticsMap().bind();
+		GLOreonContext.getResources().getUnderwaterCausticsMap().bind();
 		setUniformi("caustics", 3);
 		glActiveTexture(GL_TEXTURE4);
-		GLContext.getResources().getUnderwaterDudvMap().bind();
+		GLOreonContext.getResources().getUnderwaterDudvMap().bind();
 		setUniformi("dudvCaustics", 4);
-		if (GLContext.getResources().getWaterConfig() != null){
-			setUniformf("distortionCaustics", GLContext.getResources().getWaterConfig().getDistortion());
-			setUniformf("underwaterBlurFactor", GLContext.getResources().getWaterConfig().getUnderwaterBlur());
+		if (GLOreonContext.getResources().getWaterConfig() != null){
+			setUniformf("distortionCaustics", GLOreonContext.getResources().getWaterConfig().getDistortion());
+			setUniformf("underwaterBlurFactor", GLOreonContext.getResources().getWaterConfig().getUnderwaterBlur());
 		}
 		
 		int texUnit = 5;

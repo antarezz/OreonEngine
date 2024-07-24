@@ -8,8 +8,8 @@ import static org.lwjgl.opengl.GL13.glActiveTexture;
 
 import java.util.List;
 
-import org.oreon.core.context.BaseContext;
-import org.oreon.core.gl.context.GLContext;
+import org.oreon.core.context.BaseOreonContext;
+import org.oreon.core.gl.context.GLOreonContext;
 import org.oreon.core.gl.instanced.GLInstancedCluster;
 import org.oreon.core.gl.pipeline.GLShaderProgram;
 import org.oreon.core.instanced.InstancedCluster;
@@ -74,13 +74,13 @@ public class RockHighPolyShader extends GLShaderProgram{
 		((GLInstancedCluster) object.getParentNode()).getModelMatricesBuffer().bindBufferBase(1);
 		bindUniformBlock("modelMatrices", 1);
 		
-		setUniformi("isReflection", BaseContext.getConfig().isRenderReflection() ? 1 : 0);
-		setUniformi("isRefraction", BaseContext.getConfig().isRenderRefraction() ? 1 : 0);
+		setUniformi("isReflection", BaseOreonContext.getConfig().isRenderReflection() ? 1 : 0);
+		setUniformi("isRefraction", BaseOreonContext.getConfig().isRenderRefraction() ? 1 : 0);
 		setUniform("scalingMatrix", new Matrix4f().Scaling(object.getWorldTransform().getScaling()));
-		setUniform("clipplane", BaseContext.getConfig().getClipplane());
+		setUniform("clipplane", BaseOreonContext.getConfig().getClipplane());
 		
 		
-		setUniformi("isCameraUnderWater", BaseContext.getConfig().isRenderUnderwater() ? 1 : 0);
+		setUniformi("isCameraUnderWater", BaseOreonContext.getConfig().isRenderUnderwater() ? 1 : 0);
 		
 		Material material = (Material) object.getComponent(NodeComponentType.MATERIAL0);
 
@@ -96,12 +96,12 @@ public class RockHighPolyShader extends GLShaderProgram{
 		setUniformf("material.emission", material.getEmission());
 		
 		glActiveTexture(GL_TEXTURE2);
-		GLContext.getResources().getUnderwaterCausticsMap().bind();
+		GLOreonContext.getResources().getUnderwaterCausticsMap().bind();
 		setUniformi("caustics", 2);
 		glActiveTexture(GL_TEXTURE3);
-		GLContext.getResources().getUnderwaterDudvMap().bind();
+		GLOreonContext.getResources().getUnderwaterDudvMap().bind();
 		setUniformi("dudvCaustics", 3);
-		setUniformf("distortionCaustics", GLContext.getResources().getWaterConfig().getDistortion());
+		setUniformf("distortionCaustics", GLOreonContext.getResources().getWaterConfig().getDistortion());
 		
 		List<Integer> indices = ((InstancedCluster) object.getParentNode()).getHighPolyIndices();
 		

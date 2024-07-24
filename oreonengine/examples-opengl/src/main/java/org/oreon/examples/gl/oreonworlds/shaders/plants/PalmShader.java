@@ -2,7 +2,7 @@ package org.oreon.examples.gl.oreonworlds.shaders.plants;
 
 import java.util.List;
 
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.gl.instanced.GLInstancedCluster;
 import org.oreon.core.gl.pipeline.GLShaderProgram;
 import org.oreon.core.instanced.InstancedCluster;
@@ -53,14 +53,14 @@ public class PalmShader extends GLShaderProgram{
 	public void updateUniforms(Renderable object)
 	{
 		bindUniformBlock("Camera", Constants.CameraUniformBlockBinding);
-		setUniformi("isReflection", BaseContext.getConfig().isRenderReflection() ? 1 : 0);
+		setUniformi("isReflection", BaseOreonContext.getConfig().isRenderReflection() ? 1 : 0);
 		
 		((GLInstancedCluster) object.getParentNode()).getWorldMatricesBuffer().bindBufferBase(0);
 		bindUniformBlock("worldMatrices", 0);
 		((GLInstancedCluster) object.getParentNode()).getModelMatricesBuffer().bindBufferBase(1);
 		bindUniformBlock("modelMatrices", 1);
 		
-		setUniform("clipplane", BaseContext.getConfig().getClipplane());
+		setUniform("clipplane", BaseOreonContext.getConfig().getClipplane());
 		setUniform("scalingMatrix", new Matrix4f().Scaling(object.getWorldTransform().getScaling()));
 		
 		Material material = (Material) object.getComponent(NodeComponentType.MATERIAL0);

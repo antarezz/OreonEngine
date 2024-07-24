@@ -12,14 +12,14 @@ import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
 import static org.lwjgl.opengl.GL11.GL_TRUE;
 
 import org.oreon.core.platform.Window;
-import org.oreon.core.vk.context.VkContext;
+import org.oreon.core.vk.context.VkOreonContext;
 
 public class VkWindow extends Window{
 	
 	public VkWindow() {
 	
-		super(VkContext.getConfig().getDisplayTitle(),
-			VkContext.getConfig().getWindowWidth(), VkContext.getConfig().getWindowHeight());
+		super(VkOreonContext.getConfig().getDisplayTitle(),
+			VkOreonContext.getConfig().getWindowWidth(), VkOreonContext.getConfig().getWindowHeight());
 	}
 	
 	@Override

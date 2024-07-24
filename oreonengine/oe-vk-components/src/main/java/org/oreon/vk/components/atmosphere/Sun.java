@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.lwjgl.vulkan.VkPhysicalDeviceMemoryProperties;
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.math.Vec3f;
 import org.oreon.core.model.Vertex.VertexLayout;
 import org.oreon.core.scenegraph.NodeComponentType;
@@ -30,7 +30,7 @@ import org.oreon.core.scenegraph.Renderable;
 import org.oreon.core.util.BufferUtil;
 import org.oreon.core.vk.command.CommandBuffer;
 import org.oreon.core.vk.context.DeviceManager.DeviceType;
-import org.oreon.core.vk.context.VkContext;
+import org.oreon.core.vk.context.VkOreonContext;
 import org.oreon.core.vk.descriptor.DescriptorSet;
 import org.oreon.core.vk.descriptor.DescriptorSetLayout;
 import org.oreon.core.vk.device.LogicalDevice;
@@ -57,11 +57,11 @@ public class Sun extends Renderable{
 
 	public Sun() {
 		
-		LogicalDevice device = VkContext.getDeviceManager().getLogicalDevice(DeviceType.MAJOR_GRAPHICS_DEVICE);
+		LogicalDevice device = VkOreonContext.getDeviceManager().getLogicalDevice(DeviceType.MAJOR_GRAPHICS_DEVICE);
 		VkPhysicalDeviceMemoryProperties memoryProperties = 
-				VkContext.getDeviceManager().getPhysicalDevice(DeviceType.MAJOR_GRAPHICS_DEVICE).getMemoryProperties();
+				VkOreonContext.getDeviceManager().getPhysicalDevice(DeviceType.MAJOR_GRAPHICS_DEVICE).getMemoryProperties();
 		
-		getWorldTransform().setTranslation(BaseContext.getConfig().getSunPosition().normalize().mul(-2600));
+		getWorldTransform().setTranslation(BaseOreonContext.getConfig().getSunPosition().normalize().mul(-2600));
 		Vec3f origin = new Vec3f(0,0,0);
 		Vec3f[] array = new Vec3f[1];
 		array[0] = origin;
@@ -138,9 +138,9 @@ public class Sun extends Renderable{
 				sunImageSampler_lightScattering.getHandle(), 1,
 				VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER);
 	    
-	    descriptorSets.add(VkContext.getCamera().getDescriptorSet());
+	    descriptorSets.add(VkOreonContext.getCamera().getDescriptorSet());
 		descriptorSets.add(descriptorSet);
-		descriptorSetLayouts.add(VkContext.getCamera().getDescriptorSetLayout());
+		descriptorSetLayouts.add(VkOreonContext.getCamera().getDescriptorSetLayout());
 		descriptorSetLayouts.add(descriptorSetLayout);
 		
 		int pushConstantRange = Float.BYTES * 16;
@@ -156,10 +156,10 @@ public class Sun extends Renderable{
 	    VkPipeline graphicsPipeline = new GraphicsPipeline(device.getHandle(),
 	    		shaderPipeline, vertexInput, VK_PRIMITIVE_TOPOLOGY_POINT_LIST,
 	    		VkUtil.createLongBuffer(descriptorSetLayouts),
-				BaseContext.getConfig().getFrameWidth(),
-				BaseContext.getConfig().getFrameHeight(),
-				VkContext.getResources().getTransparencyFbo().getRenderPass().getHandle(),
-				VkContext.getResources().getTransparencyFbo().getColorAttachmentCount(),
+				BaseOreonContext.getConfig().getFrameWidth(),
+				BaseOreonContext.getConfig().getFrameHeight(),
+				VkOreonContext.getResources().getTransparencyFbo().getRenderPass().getHandle(),
+				VkOreonContext.getResources().getTransparencyFbo().getColorAttachmentCount(),
 				1,
 				pushConstantRange, VK_SHADER_STAGE_VERTEX_BIT);
 	    
@@ -167,8 +167,8 @@ public class Sun extends Renderable{
 	    		device.getHandle(),
 	    		device.getGraphicsCommandPool(Thread.currentThread().getId()).getHandle(), 
 	    		graphicsPipeline.getHandle(), graphicsPipeline.getLayoutHandle(),
-	    		VkContext.getResources().getTransparencyFbo().getFrameBuffer().getHandle(),
-	    		VkContext.getResources().getTransparencyFbo().getRenderPass().getHandle(),
+	    		VkOreonContext.getResources().getTransparencyFbo().getFrameBuffer().getHandle(),
+	    		VkOreonContext.getResources().getTransparencyFbo().getRenderPass().getHandle(),
 	    		0,
 	    		VkUtil.createLongArray(descriptorSets),
 	    		vertexBufferObject.getHandle(), 1,

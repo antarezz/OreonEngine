@@ -2,7 +2,7 @@ package org.oreon.core.gl.instanced;
 
 import java.nio.FloatBuffer;
 
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.gl.memory.GLUniformBuffer;
 import org.oreon.core.instanced.InstancedObject;
 import org.oreon.core.math.Matrix4f;
@@ -62,10 +62,10 @@ public class GLInstancedObject extends InstancedObject{
 		getModelMatricesBuffer().bindBufferBase(1);
 		
 		// only low-poly objects rendered when reflection or refraction rendering
-		if (BaseContext.getConfig().isRenderRefraction()){
+		if (BaseOreonContext.getConfig().isRenderRefraction()){
 			renderLowPoly();
 		}
-		else if (BaseContext.getConfig().isRenderReflection()){
+		else if (BaseOreonContext.getConfig().isRenderReflection()){
 			renderLowPoly();
 		}
 		else{

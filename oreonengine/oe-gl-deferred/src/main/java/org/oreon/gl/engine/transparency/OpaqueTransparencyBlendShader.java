@@ -7,7 +7,7 @@ import static org.lwjgl.opengl.GL13.GL_TEXTURE5;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE6;
 import static org.lwjgl.opengl.GL13.glActiveTexture;
 
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.gl.pipeline.GLShaderProgram;
 import org.oreon.core.gl.texture.GLTexture;
 import org.oreon.core.util.ResourceLoader;
@@ -46,8 +46,8 @@ private static OpaqueTransparencyBlendShader instance = null;
 			GLTexture alphaMap, GLTexture transparencyLayerLightScatteringTexture,
 			GLTexture opaqueDepthMap, GLTexture transparencyLayerDepthMap)
 	{
-		setUniformf("width", BaseContext.getConfig().getFrameWidth());
-		setUniformf("height", BaseContext.getConfig().getFrameHeight());
+		setUniformf("width", BaseOreonContext.getConfig().getFrameWidth());
+		setUniformf("height", BaseOreonContext.getConfig().getFrameHeight());
 
 		glActiveTexture(GL_TEXTURE1);
 		opaqueSceneLightScatteringTexture.bind();

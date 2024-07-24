@@ -1,6 +1,6 @@
 package org.oreon.gl.components.atmosphere;
 
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.gl.pipeline.GLShaderProgram;
 import org.oreon.core.scenegraph.Renderable;
 import org.oreon.core.util.Constants;
@@ -42,12 +42,12 @@ public class AtmosphereShader extends GLShaderProgram{
 	{
 		setUniform("modelViewProjectionMatrix", object.getWorldTransform().getModelViewProjectionMatrix());
 		setUniform("modelMatrix", object.getWorldTransform().getWorldMatrix());
-		setUniform("m_ViewProjection", BaseContext.getCamera().getOriginViewProjectionMatrix());
-		setUniform("v_SunWorld", BaseContext.getConfig().getSunPosition().mul(-Constants.ZFAR));
-		setUniformf("r_Sun", BaseContext.getConfig().getSunRadius());
-		setUniformi("width", BaseContext.getConfig().getFrameWidth());
-		setUniformi("height", BaseContext.getConfig().getFrameHeight());
-		setUniformi("isReflection", BaseContext.getConfig().isRenderReflection() ? 1 : 0);
-		setUniformf("bloom", BaseContext.getConfig().getAtmosphereBloomFactor());
+		setUniform("m_ViewProjection", BaseOreonContext.getCamera().getOriginViewProjectionMatrix());
+		setUniform("v_SunWorld", BaseOreonContext.getConfig().getSunPosition().mul(-Constants.ZFAR));
+		setUniformf("r_Sun", BaseOreonContext.getConfig().getSunRadius());
+		setUniformi("width", BaseOreonContext.getConfig().getFrameWidth());
+		setUniformi("height", BaseOreonContext.getConfig().getFrameHeight());
+		setUniformi("isReflection", BaseOreonContext.getConfig().isRenderReflection() ? 1 : 0);
+		setUniformf("bloom", BaseOreonContext.getConfig().getAtmosphereBloomFactor());
 	}
 }

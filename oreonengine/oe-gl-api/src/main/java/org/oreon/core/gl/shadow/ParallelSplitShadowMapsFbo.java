@@ -6,7 +6,7 @@ import static org.lwjgl.opengl.GL30.GL_DEPTH_ATTACHMENT;
 import static org.lwjgl.opengl.GL30.GL_FRAMEBUFFER;
 import static org.lwjgl.opengl.GL32.glFramebufferTexture;
 
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.gl.framebuffer.GLFramebuffer;
 import org.oreon.core.gl.pipeline.RenderParameter;
 import org.oreon.core.gl.texture.GLTexture;
@@ -30,8 +30,8 @@ public class ParallelSplitShadowMapsFbo {
 		
 		config = new ShadowConfig();
 		
-		depthMap = new TextureImage2DArrray(BaseContext.getConfig().getShadowMapResolution(),
-				BaseContext.getConfig().getShadowMapResolution(), Constants.PSSM_SPLITS,
+		depthMap = new TextureImage2DArrray(BaseOreonContext.getConfig().getShadowMapResolution(),
+				BaseOreonContext.getConfig().getShadowMapResolution(), Constants.PSSM_SPLITS,
 				ImageFormat.DEPTH32FLOAT, SamplerFilter.Bilinear, TextureWrapMode.ClampToEdge); 
 		
 		fbo = new GLFramebuffer();

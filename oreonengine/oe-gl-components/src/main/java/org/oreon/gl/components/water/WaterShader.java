@@ -10,7 +10,7 @@ import static org.lwjgl.opengl.GL13.GL_TEXTURE6;
 import static org.lwjgl.opengl.GL13.glActiveTexture;
 
 import org.oreon.common.water.WaterConfig;
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.gl.pipeline.GLShaderProgram;
 import org.oreon.core.scenegraph.Renderable;
 import org.oreon.core.util.Constants;
@@ -65,7 +65,7 @@ public class WaterShader extends GLShaderProgram{
 		Water ocean = (Water) object;
 		WaterConfig configuration = ocean.getConfig();
 		
-		setUniformi("isCameraUnderWater", BaseContext.getConfig().isRenderUnderwater() ? 1 : 0);	
+		setUniformi("isCameraUnderWater", BaseOreonContext.getConfig().isRenderUnderwater() ? 1 : 0);
 		setUniform("wind", configuration.getWindDirection());
 		
 		setUniformf("motion", ocean.getT_motion());

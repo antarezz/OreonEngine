@@ -7,7 +7,7 @@ import static org.lwjgl.opengl.GL30.GL_RGBA16F;
 import static org.lwjgl.opengl.GL42.glBindImageTexture;
 import static org.lwjgl.opengl.GL43.glDispatchCompute;
 
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.gl.surface.FullScreenQuad;
 import org.oreon.core.gl.texture.GLTexture;
 import org.oreon.core.gl.wrapper.texture.TextureImage2D;
@@ -49,7 +49,7 @@ public class OpaqueTransparencyBlending extends FullScreenQuad{
 		shader.updateUniforms(opaqueSceneLightScatteringTexture, 
 							  alphaMap, transparencyLayerLightScatteringTexture,
 							  opaqueSceneDepthMap, transparencyLayerDepthMap);
-		glDispatchCompute(BaseContext.getWindow().getWidth()/16, BaseContext.getWindow().getHeight()/16, 1);
+		glDispatchCompute(BaseOreonContext.getWindow().getWidth()/16, BaseOreonContext.getWindow().getHeight()/16, 1);
 	}
 
 }

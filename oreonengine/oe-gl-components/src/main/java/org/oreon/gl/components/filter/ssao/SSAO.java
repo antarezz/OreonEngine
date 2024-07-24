@@ -8,7 +8,7 @@ import static org.lwjgl.opengl.GL30.GL_RGBA32F;
 import static org.lwjgl.opengl.GL42.glBindImageTexture;
 import static org.lwjgl.opengl.GL43.glDispatchCompute;
 
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.gl.texture.GLTexture;
 import org.oreon.core.gl.wrapper.texture.TextureImage2D;
 import org.oreon.core.gl.wrapper.texture.TextureStorage2D;
@@ -83,8 +83,8 @@ public class SSAO {
 		glBindImageTexture(1, worldPositionSceneTexture.getHandle(), 0, false, 0, GL_READ_ONLY, GL_RGBA32F);
 		glBindImageTexture(2, normalSceneTexture.getHandle(), 0, false, 0, GL_READ_ONLY, GL_RGBA16F);
 		glBindImageTexture(3, noiseTexture.getHandle(), 0, false, 0, GL_READ_ONLY, GL_RGBA16F);
-		ssaoShader.updateUniforms(BaseContext.getCamera().getViewMatrix(),
-								  BaseContext.getCamera().getProjectionMatrix(),
+		ssaoShader.updateUniforms(BaseOreonContext.getCamera().getViewMatrix(),
+								  BaseOreonContext.getCamera().getProjectionMatrix(),
 								  width, height, kernel);
 		glDispatchCompute(width/16,height/16,1);
 		

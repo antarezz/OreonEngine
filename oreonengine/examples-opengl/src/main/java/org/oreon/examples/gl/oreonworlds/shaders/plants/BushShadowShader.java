@@ -2,7 +2,7 @@ package org.oreon.examples.gl.oreonworlds.shaders.plants;
 
 import java.util.List;
 
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.gl.instanced.GLInstancedCluster;
 import org.oreon.core.gl.pipeline.GLShaderProgram;
 import org.oreon.core.instanced.InstancedCluster;
@@ -45,7 +45,7 @@ public class BushShadowShader extends GLShaderProgram{
 	
 	public void updateUniforms(Renderable object){
 		
-		setUniform("clipplane", BaseContext.getConfig().getClipplane());
+		setUniform("clipplane", BaseOreonContext.getConfig().getClipplane());
 		bindUniformBlock("Camera",Constants.CameraUniformBlockBinding);
 		bindUniformBlock("LightViewProjections",Constants.LightMatricesUniformBlockBinding);
 		

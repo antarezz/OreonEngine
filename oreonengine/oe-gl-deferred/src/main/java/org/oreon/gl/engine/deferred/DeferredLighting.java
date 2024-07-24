@@ -10,7 +10,7 @@ import static org.lwjgl.opengl.GL30.GL_RGBA32F;
 import static org.lwjgl.opengl.GL42.glBindImageTexture;
 import static org.lwjgl.opengl.GL43.glDispatchCompute;
 
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.gl.texture.GLTexture;
 import org.oreon.core.gl.wrapper.texture.TextureImage2D;
 import org.oreon.core.image.Image.ImageFormat;
@@ -51,7 +51,7 @@ public class DeferredLighting {
 		glBindImageTexture(4, normalTexture.getHandle(), 0, false, 0, GL_READ_ONLY, GL_RGBA16F);
 		glBindImageTexture(5, specularEmissionDiffuseSsaoBloomTexture.getHandle(), 0, false, 0, GL_READ_ONLY, GL_RGBA16F);
 		glBindImageTexture(6, sampleCoverageMask.getHandle(), 0, false, 0, GL_READ_ONLY, GL_R8);
-		if (BaseContext.getConfig().isSsaoEnabled())
+		if (BaseOreonContext.getConfig().isSsaoEnabled())
 			glBindImageTexture(7, ssaoBlurTexture.getHandle(), 0, false, 0, GL_READ_ONLY, GL_R16F);
 		shader.updateUniforms(shadowmap);
 		glDispatchCompute(width/2, height/2,1);

@@ -3,7 +3,7 @@ package org.oreon.gl.engine.antialiasing;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
 import static org.lwjgl.opengl.GL13.glActiveTexture;
 
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.gl.pipeline.GLShaderProgram;
 import org.oreon.core.gl.texture.GLTexture;
 import org.oreon.core.util.ResourceLoader;
@@ -40,7 +40,7 @@ public class FXAAShader extends GLShaderProgram{
 		sceneTexture.bind();
 		sceneTexture.bilinearFilter();
 		setUniformi("sceneSampler", 0);
-		setUniformf("width", (float) BaseContext.getWindow().getWidth());
-		setUniformf("height", (float) BaseContext.getWindow().getHeight());
+		setUniformf("width", (float) BaseOreonContext.getWindow().getWidth());
+		setUniformf("height", (float) BaseOreonContext.getWindow().getHeight());
 	}
 }

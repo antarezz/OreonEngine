@@ -5,7 +5,7 @@ import static org.lwjgl.opengl.GL13.glActiveTexture;
 
 import java.util.List;
 
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.gl.pipeline.GLShaderProgram;
 import org.oreon.core.instanced.InstancedObject;
 import org.oreon.core.math.Matrix4f;
@@ -57,10 +57,10 @@ public class GrassShader extends GLShaderProgram{
 		bindUniformBlock("Camera", Constants.CameraUniformBlockBinding);
 		bindUniformBlock("worldMatrices", 0);
 		bindUniformBlock("modelMatrices", 1);
-		setUniformi("isReflection", BaseContext.getConfig().isRenderReflection() ? 1 : 0);
+		setUniformi("isReflection", BaseOreonContext.getConfig().isRenderReflection() ? 1 : 0);
 		setUniform("scalingMatrix", new Matrix4f().Scaling(object.getWorldTransform().getScaling()));
 		
-		setUniform("clipplane", BaseContext.getConfig().getClipplane());
+		setUniform("clipplane", BaseOreonContext.getConfig().getClipplane());
 		
 		Material material = object.getComponent(NodeComponentType.MATERIAL0);
 

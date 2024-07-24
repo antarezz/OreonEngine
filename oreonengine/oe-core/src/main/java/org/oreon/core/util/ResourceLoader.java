@@ -18,7 +18,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.lwjgl.BufferUtils;
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
+import org.oreon.core.context.ContextHolder;
 
 public class ResourceLoader {
 
@@ -77,7 +78,8 @@ public class ResourceLoader {
 		}
 		
 		// replace const paramter in glsl library
-		String vlib = shaderlibSource.toString().replaceFirst("#var_shadow_map_resolution", Integer.toString(BaseContext.getConfig().getShadowMapResolution())); 
+		String vlib = shaderlibSource.toString().replaceFirst("#var_shadow_map_resolution", Integer.toString(
+				ContextHolder.getContext().getConfig().getShadowMapResolution()));
 		
 		return shadersource.replaceFirst("#lib.glsl", vlib);
 	}

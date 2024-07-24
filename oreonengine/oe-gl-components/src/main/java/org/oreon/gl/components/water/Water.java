@@ -15,8 +15,8 @@ import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
 import org.oreon.common.water.WaterConfig;
-import org.oreon.core.context.BaseContext;
-import org.oreon.core.gl.context.GLContext;
+import org.oreon.core.context.BaseOreonContext;
+import org.oreon.core.gl.context.GLOreonContext;
 import org.oreon.core.gl.framebuffer.GLFramebuffer;
 import org.oreon.core.gl.memory.GLPatchVBO;
 import org.oreon.core.gl.memory.GLShaderStorageBuffer;
@@ -85,7 +85,7 @@ public class Water extends Renderable{
 	{		
 		config = new WaterConfig();
 		config.loadFile("water-config.properties");
-		GLContext.getResources().setWaterConfig(config);
+		GLOreonContext.getResources().setWaterConfig(config);
 		
 		GLPatchVBO meshBuffer = new GLPatchVBO();
 		meshBuffer.addData(MeshGenerator.generatePatch2D4x4(patches),16);
@@ -111,8 +111,8 @@ public class Water extends Renderable{
 		normalmapRenderer = new NormalRenderer(config.getN());
 		getNormalmapRenderer().setStrength(config.getNormalStrength());
 		
-		reflection_texture = new TextureImage2D(BaseContext.getConfig().getFrameWidth()/2,
-				BaseContext.getConfig().getFrameHeight()/2,
+		reflection_texture = new TextureImage2D(BaseOreonContext.getConfig().getFrameWidth()/2,
+				BaseOreonContext.getConfig().getFrameHeight()/2,
 				ImageFormat.RGBA16FLOAT, SamplerFilter.Nearest);
 		
 		IntBuffer drawBuffers = BufferUtil.createIntBuffer(1);
@@ -122,21 +122,21 @@ public class Water extends Renderable{
 		reflection_fbo = new GLFramebuffer();
 		reflection_fbo.bind();
 		reflection_fbo.createColorTextureAttachment(reflection_texture.getHandle(),0);
-		reflection_fbo.createDepthBufferAttachment(BaseContext.getConfig().getFrameWidth()/2,
-				BaseContext.getConfig().getFrameHeight()/2);
+		reflection_fbo.createDepthBufferAttachment(BaseOreonContext.getConfig().getFrameWidth()/2,
+				BaseOreonContext.getConfig().getFrameHeight()/2);
 		reflection_fbo.setDrawBuffers(drawBuffers);
 		reflection_fbo.checkStatus();
 		reflection_fbo.unbind();
 		
-		refraction_texture = new TextureImage2D(BaseContext.getConfig().getFrameWidth()/2,
-				BaseContext.getConfig().getFrameHeight()/2,
+		refraction_texture = new TextureImage2D(BaseOreonContext.getConfig().getFrameWidth()/2,
+				BaseOreonContext.getConfig().getFrameHeight()/2,
 				ImageFormat.RGBA16FLOAT, SamplerFilter.Nearest);
 		
 		refraction_fbo = new GLFramebuffer();
 		refraction_fbo.bind();
 		refraction_fbo.createColorTextureAttachment(refraction_texture.getHandle(),0);
-		refraction_fbo.createDepthBufferAttachment(BaseContext.getConfig().getFrameWidth()/2,
-				BaseContext.getConfig().getFrameHeight()/2);
+		refraction_fbo.createDepthBufferAttachment(BaseOreonContext.getConfig().getFrameWidth()/2,
+				BaseOreonContext.getConfig().getFrameHeight()/2);
 		refraction_fbo.setDrawBuffers(drawBuffers);
 		refraction_fbo.checkStatus();
 		refraction_fbo.unbind();
@@ -147,7 +147,7 @@ public class Water extends Renderable{
 	
 	public void update()
 	{
-		isCameraUnderwater = BaseContext.getCamera().getPosition().getY() < (getWorldTransform().getTranslation().getY());
+		isCameraUnderwater = BaseOreonContext.getCamera().getPosition().getY() < (getWorldTransform().getTranslation().getY());
 		t_motion += (System.currentTimeMillis() - systemTime) * config.getWaveMotion();
 		t_distortion += (System.currentTimeMillis() - systemTime) * config.getDistortion();
 		systemTime = System.currentTimeMillis();
@@ -168,15 +168,15 @@ public class Water extends Renderable{
 	{
 		if (!isCameraUnderwater){
 			glEnable(GL_CLIP_DISTANCE6);
-			BaseContext.getConfig().setRenderUnderwater(false);
+			BaseOreonContext.getConfig().setRenderUnderwater(false);
 		}
 		else {
-			BaseContext.getConfig().setRenderUnderwater(true);
+			BaseOreonContext.getConfig().setRenderUnderwater(true);
 		}
 		
 		Scenegraph scenegraph = ((Scenegraph) getParentNode());
 		
-		BaseContext.getConfig().setClipplane(clipplane);
+		BaseOreonContext.getConfig().setClipplane(clipplane);
 			
 		//-----------------------------------//
 		//     mirror scene to clipplane     //
@@ -197,13 +197,13 @@ public class Water extends Renderable{
 		//    render reflection to texture   //
 		//-----------------------------------//
 
-		int tempScreenResolutionX = BaseContext.getConfig().getFrameWidth(); 
-		int tempScreenResolutionY = BaseContext.getConfig().getFrameHeight(); 
-		BaseContext.getConfig().setFrameWidth(tempScreenResolutionX/2);
-		BaseContext.getConfig().setFrameHeight(tempScreenResolutionY/2);
+		int tempScreenResolutionX = BaseOreonContext.getConfig().getFrameWidth();
+		int tempScreenResolutionY = BaseOreonContext.getConfig().getFrameHeight();
+		BaseOreonContext.getConfig().setFrameWidth(tempScreenResolutionX/2);
+		BaseOreonContext.getConfig().setFrameHeight(tempScreenResolutionY/2);
 		glViewport(0,0,tempScreenResolutionX/2, tempScreenResolutionY/2);
 		
-		BaseContext.getConfig().setRenderReflection(true);
+		BaseOreonContext.getConfig().setRenderReflection(true);
 		
 		reflection_fbo.bind();
 		renderConfig.clearScreenDeepOcean();
@@ -226,7 +226,7 @@ public class Water extends Renderable{
 		glFrontFace(GL_CW);
 		reflection_fbo.unbind();
 		
-		BaseContext.getConfig().setRenderReflection(false);
+		BaseOreonContext.getConfig().setRenderReflection(false);
 		
 		//-----------------------------------//
 		//   antimirror scene to clipplane   //
@@ -246,7 +246,7 @@ public class Water extends Renderable{
 		//    render refraction to texture   //
 		//-----------------------------------//
 		
-		BaseContext.getConfig().setRenderRefraction(true);
+		BaseOreonContext.getConfig().setRenderRefraction(true);
 		
 		refraction_fbo.bind();
 		renderConfig.clearScreenDeepOcean();
@@ -268,16 +268,16 @@ public class Water extends Renderable{
 		//     reset rendering settings      //
 		//-----------------------------------//
 		
-		BaseContext.getConfig().setRenderRefraction(false);
+		BaseOreonContext.getConfig().setRenderRefraction(false);
 		
 		glDisable(GL_CLIP_DISTANCE6);
-		BaseContext.getConfig().setClipplane(Constants.ZEROPLANE);	
+		BaseOreonContext.getConfig().setClipplane(Constants.ZEROPLANE);
 	
 		glViewport(0,0,tempScreenResolutionX, tempScreenResolutionY);
-		BaseContext.getConfig().setFrameWidth(tempScreenResolutionX);
-		BaseContext.getConfig().setFrameHeight(tempScreenResolutionY);
+		BaseOreonContext.getConfig().setFrameWidth(tempScreenResolutionX);
+		BaseOreonContext.getConfig().setFrameHeight(tempScreenResolutionY);
 		
-		GLContext.getResources().getPrimaryFbo().bind();
+		GLOreonContext.getResources().getPrimaryFbo().bind();
 		
 		//-----------------------------------//
 		//            render FFT'S           //
@@ -307,8 +307,8 @@ public class Water extends Renderable{
 		byteBuffer.putFloat(config.getChoppiness());
 		byteBuffer.putFloat(config.getKReflection());
 		byteBuffer.putFloat(config.getKRefraction());
-		byteBuffer.putInt(BaseContext.getConfig().getFrameWidth());
-		byteBuffer.putInt(BaseContext.getConfig().getFrameHeight());
+		byteBuffer.putInt(BaseOreonContext.getConfig().getFrameWidth());
+		byteBuffer.putInt(BaseOreonContext.getConfig().getFrameHeight());
 		byteBuffer.putInt(config.isDiffuse() ? 1 : 0);
 		byteBuffer.putFloat(config.getEmission());
 		byteBuffer.putFloat(config.getSpecularFactor());

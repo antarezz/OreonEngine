@@ -4,7 +4,7 @@ import java.nio.FloatBuffer;
 import java.util.List;
 
 import org.oreon.common.terrain.TerrainHelper;
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.gl.instanced.GLInstancedCluster;
 import org.oreon.core.gl.memory.GLUniformBuffer;
 import org.oreon.core.math.Matrix4f;
@@ -67,7 +67,7 @@ public class Plant01Cluster extends GLInstancedCluster{
 	}
 	
 	public void render(){
-		if (getCenter().sub(BaseContext.getCamera().getPosition()).length() < 60000){
+		if (getCenter().sub(BaseOreonContext.getCamera().getPosition()).length() < 60000){
 			super.render();
 		}
 	}

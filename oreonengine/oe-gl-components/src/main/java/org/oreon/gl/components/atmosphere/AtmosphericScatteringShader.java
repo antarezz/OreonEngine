@@ -1,6 +1,6 @@
 package org.oreon.gl.components.atmosphere;
 
-import org.oreon.core.context.BaseContext;
+import org.oreon.core.context.BaseOreonContext;
 import org.oreon.core.gl.pipeline.GLShaderProgram;
 import org.oreon.core.scenegraph.Renderable;
 import org.oreon.core.util.ResourceLoader;
@@ -42,16 +42,16 @@ public class AtmosphericScatteringShader extends GLShaderProgram{
 	public void updateUniforms(Renderable object)
 	{
 		setUniform("m_MVP", object.getWorldTransform().getModelViewProjectionMatrix());
-		setUniform("m_Projection", BaseContext.getCamera().getProjectionMatrix());
-		setUniform("m_View", BaseContext.getCamera().getViewMatrix());
-		setUniform("v_Sun", BaseContext.getConfig().getSunPosition().mul(-1));
-		setUniformf("horizonVerticalShift", BaseContext.getConfig().getHorizonVerticalShift());
-		setUniformf("reflectionVerticalShift", BaseContext.getConfig().getHorizonReflectionVerticalShift());
-		setUniformf("r_Sun", BaseContext.getConfig().getSunRadius());
-		setUniformi("width", BaseContext.getConfig().getFrameWidth());
-		setUniformi("height", BaseContext.getConfig().getFrameHeight());
-		setUniformi("isReflection", BaseContext.getConfig().isRenderReflection() ? 1 : 0);
-		setUniformf("bloom", BaseContext.getConfig().getAtmosphereBloomFactor());
+		setUniform("m_Projection", BaseOreonContext.getCamera().getProjectionMatrix());
+		setUniform("m_View", BaseOreonContext.getCamera().getViewMatrix());
+		setUniform("v_Sun", BaseOreonContext.getConfig().getSunPosition().mul(-1));
+		setUniformf("horizonVerticalShift", BaseOreonContext.getConfig().getHorizonVerticalShift());
+		setUniformf("reflectionVerticalShift", BaseOreonContext.getConfig().getHorizonReflectionVerticalShift());
+		setUniformf("r_Sun", BaseOreonContext.getConfig().getSunRadius());
+		setUniformi("width", BaseOreonContext.getConfig().getFrameWidth());
+		setUniformi("height", BaseOreonContext.getConfig().getFrameHeight());
+		setUniformi("isReflection", BaseOreonContext.getConfig().isRenderReflection() ? 1 : 0);
+		setUniformf("bloom", BaseOreonContext.getConfig().getAtmosphereBloomFactor());
 	}
 
 }
