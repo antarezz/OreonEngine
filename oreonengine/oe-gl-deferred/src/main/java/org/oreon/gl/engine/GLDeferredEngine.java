@@ -5,6 +5,7 @@ import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL11.glFinish;
 import static org.lwjgl.opengl.GL11.glViewport;
 
+import lombok.Getter;
 import lombok.Setter;
 import org.lwjgl.glfw.GLFW;
 import org.oreon.core.RenderEngine;

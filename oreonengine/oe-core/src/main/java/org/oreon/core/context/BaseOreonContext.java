@@ -2,7 +2,6 @@ package org.oreon.core.context;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import org.oreon.core.CoreEngine;
 import org.oreon.core.RenderEngine;
 import org.oreon.core.platform.GLFWInput;
@@ -25,13 +24,13 @@ public class BaseOreonContext<C extends Camera, W extends Window, R extends Oreo
   private R resources;
 
   protected BaseOreonContext(final C camera, final W window, final R resources,
-      final RenderEngine renderEngine) {
+      final Config config, final RenderEngine renderEngine) {
     this.camera = camera;
     this.window = window;
     this.resources = resources;
 
     this.coreEngine = new CoreEngine();
-    this.config = new Config();
+    this.config = config;
     this.input = new GLFWInput();
 
     this.renderEngine = renderEngine;

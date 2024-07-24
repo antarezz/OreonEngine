@@ -1,0 +1,24 @@
+java {
+    sourceCompatibility = '21'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':oe-core')
+
+    implementation 'org.lwjgl:lwjgl:3.3.4'
+    implementation 'org.lwjgl:lwjgl-assimp:3.3.4'
+    implementation 'org.lwjgl:lwjgl-glfw:3.3.4'
+    implementation 'org.lwjgl:lwjgl-jemalloc:3.3.4'
+    implementation 'org.lwjgl:lwjgl-openal:3.3.4'
+    implementation 'org.lwjgl:lwjgl-opengl:3.3.4'
+    implementation 'org.lwjgl:lwjgl-vulkan:3.3.4'
+    implementation 'org.lwjgl:lwjgl-stb:3.3.4'
+    implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
+
+    compileOnly 'org.projectlombok:lombok:1.18.34'
+    annotationProcessor 'org.projectlombok:lombok:1.18.34'
+}

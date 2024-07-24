@@ -24,7 +24,6 @@ import org.oreon.core.platform.Window;
 public class GLWindow extends Window {
 
   public GLWindow() {
-
     super(
         ContextHolder.getContext().getConfig().getDisplayTitle(),
         ContextHolder.getContext().getConfig().getWindowWidth(),

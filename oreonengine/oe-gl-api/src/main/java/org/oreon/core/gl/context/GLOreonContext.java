@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.lwjgl.opengl.GL11;
 import org.oreon.core.context.BaseOreonContext;
+import org.oreon.core.context.Config;
 import org.oreon.core.gl.platform.GLWindow;
 import org.oreon.core.gl.scenegraph.GLCamera;
 import org.oreon.core.gl.util.GLUtil;
@@ -15,7 +16,7 @@ import org.oreon.core.gl.util.GLUtil;
 public class GLOreonContext extends BaseOreonContext<GLCamera, GLWindow, GLResources> {
 
   public GLOreonContext() {
-    super(new GLCamera(), new GLWindow(), new GLResources(), null);
+    super(new GLCamera(), new GLWindow(), new GLResources(), new Config(), null);
 
     if (!glfwInit()) {
       throw new IllegalStateException("Unable to initialize GLFW");

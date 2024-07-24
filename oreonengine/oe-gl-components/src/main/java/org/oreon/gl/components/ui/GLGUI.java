@@ -4,11 +4,14 @@ import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
 import static org.lwjgl.opengl.GL11.glDisable;
 import static org.lwjgl.opengl.GL11.glEnable;
 
+import java.util.ArrayList;
 import org.oreon.common.ui.GUI;
 import org.oreon.common.ui.UIPanelLoader;
+import org.oreon.common.ui.UIScreen;
 import org.oreon.core.gl.texture.GLTexture;
 import org.oreon.core.gl.wrapper.texture.TextureImage2D;
 import org.oreon.core.image.Image.SamplerFilter;
+import org.oreon.core.scenegraph.RenderList;
 
 public class GLGUI extends GUI {
 
@@ -27,7 +30,5 @@ public class GLGUI extends GUI {
     super.render();
     glEnable(GL_DEPTH_TEST);
   }
-
-  ;
 
 }
